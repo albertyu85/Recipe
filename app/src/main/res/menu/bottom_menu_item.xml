@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/cuisinesFragment"
+        android:title="@string/cuisines" >
+    </item>
+
+    <item
+        android:id="@+id/mealTypesFragment"
+        android:title="@string/meal_types" >
+    </item>
+
+    <item
+        android:id="@+id/dietsFragment"
+        android:title="@string/diets">
+    </item>
+</menu>
