@@ -3,4 +3,5 @@
     <string name="cuisines">Cuisines</string>
     <string name="meal_types">Meal Types</string>
     <string name="diets">Diets</string>
+    <string name="cart">Cart</string>
 </resources>

@@ -1,7 +1,7 @@
-package com.example.recipe
+package com.example.recipe.ui.diets
 
 import androidx.lifecycle.ViewModel
 
-class CuisinesViewModel : ViewModel() {
+class DietsViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
