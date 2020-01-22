@@ -27,11 +27,10 @@ class DietsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(DietsViewModel::class.java)
         val adapter = DietAdapter()
         val manager = GridLayoutManager(this.context, 2)
-        val data = listOf("Gluten Free", "Ketogenic", "Vegetarian", "Lacto-Vegetarian", "Oro-Vegetarian", "Vegan", "Pescetarian",
-            "Paleo", "Whole 30")
-        adapter.data = data
+        adapter.data = viewModel.data
         dietList.adapter = adapter
         dietList.layoutManager = manager
         super.onViewCreated(view, savedInstanceState)
@@ -39,8 +38,6 @@ class DietsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(DietsViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

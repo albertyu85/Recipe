@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.mealtypes.MealTypesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <data>
+
+    </data>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meal_types_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Meal Types" />
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
-</FrameLayout>
+</layout>
