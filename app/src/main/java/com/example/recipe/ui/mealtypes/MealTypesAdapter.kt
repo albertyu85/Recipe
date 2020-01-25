@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.list_item_meal_types.view.*
 
-class MealTypesAdapter : RecyclerView.Adapter<MealTypesAdapter.ViewHolder>() {
+class MealTypesAdapter(val listener : () -> Unit) : RecyclerView.Adapter<MealTypesAdapter.ViewHolder>() {
 
     var data = listOf<String>()
         set(value) {
@@ -27,9 +27,16 @@ class MealTypesAdapter : RecyclerView.Adapter<MealTypesAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         holder.title.text = item
+        holder.bind(listener)
     }
 
     class ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         val title = itemView.list_meal_type_title
+        fun bind(clickListener : () -> Unit) {
+            itemView.setOnClickListener {
+                clickListener()
+            }
+        }
+
     }
 }

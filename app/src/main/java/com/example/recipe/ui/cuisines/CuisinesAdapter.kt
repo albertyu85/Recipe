@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipe.MainActivity
 import com.example.recipe.R
+import com.example.recipe.ui.detail.DetailFragment
 
-class CuisinesAdapter : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
+class CuisinesAdapter(val listener: () -> Unit) : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
     var data = listOf<String>()
         set(value) {
             field = value
@@ -26,9 +28,17 @@ class CuisinesAdapter : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: CuisinesAdapter.ViewHolder, position: Int) {
         val item = data[position]
         holder.cuisineName.text = item
+        holder.bind(listener)
+
     }
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val cuisineName = itemView.findViewById<TextView>(R.id.list_cuisine_title)
+        fun bind(clickListener : () -> Unit) {
+            itemView.setOnClickListener {
+                clickListener()
+            }
+        }
     }
+
 }

@@ -9,15 +9,32 @@
         android:id="@+id/cuisinesFragment"
         android:name="com.example.recipe.ui.cuisines.CuisinesFragment"
         android:label="cuisines_fragment"
-        tools:layout="@layout/cuisines_fragment" />
+        tools:layout="@layout/cuisines_fragment" >
+        <action
+            android:id="@+id/action_cuisinesFragment_to_detail"
+            app:destination="@id/detail" />
+    </fragment>
     <fragment
         android:id="@+id/dietsFragment"
         android:name="com.example.recipe.ui.diets.DietsFragment"
         android:label="diets_fragment"
-        tools:layout="@layout/diets_fragment" />
+        tools:layout="@layout/diets_fragment" >
+        <action
+            android:id="@+id/action_dietsFragment_to_detail"
+            app:destination="@id/detail" />
+    </fragment>
     <fragment
         android:id="@+id/mealTypesFragment"
         android:name="com.example.recipe.ui.mealtypes.MealTypesFragment"
         android:label="meal_types_fragment"
-        tools:layout="@layout/meal_types_fragment" />
+        tools:layout="@layout/meal_types_fragment" >
+        <action
+            android:id="@+id/action_mealTypesFragment_to_detail"
+            app:destination="@id/detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.example.recipe.ui.detail.DetailFragment"
+        android:label="detail_fragment"
+        tools:layout="@layout/detail_fragment" />
 </navigation>

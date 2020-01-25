@@ -9,10 +9,10 @@ import android.view.ViewGroup
 
 import com.example.recipe.R
 
-class Detail : Fragment() {
+class DetailFragment : Fragment() {
 
     companion object {
-        fun newInstance() = Detail()
+        fun newInstance() = DetailFragment()
     }
 
     private lateinit var viewModel: DetailViewModel

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.meal_types_fragment.*
@@ -28,7 +29,7 @@ class MealTypesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(MealTypesViewModel::class.java)
-        val adapter = MealTypesAdapter()
+        val adapter = MealTypesAdapter{onClick()}
         val layout = GridLayoutManager(this.context, 2)
         adapter.data = viewModel.data
         meal_types_list.adapter = adapter
@@ -39,6 +40,10 @@ class MealTypesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+    }
+
+    private fun onClick() {
+        view?.findNavController()?.navigate(R.id.action_mealTypesFragment_to_detail)
     }
 
 }

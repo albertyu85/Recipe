@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.diets_fragment.*
@@ -28,7 +29,7 @@ class DietsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(DietsViewModel::class.java)
-        val adapter = DietAdapter()
+        val adapter = DietAdapter {onClick()}
         val manager = GridLayoutManager(this.context, 2)
         adapter.data = viewModel.data
         dietList.adapter = adapter
@@ -40,4 +41,7 @@ class DietsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
     }
 
+    private fun onClick() {
+        view?.findNavController()?.navigate(R.id.action_dietsFragment_to_detail)
+    }
 }
