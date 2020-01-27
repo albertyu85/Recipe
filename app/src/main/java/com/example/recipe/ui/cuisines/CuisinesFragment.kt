@@ -38,6 +38,8 @@ class CuisinesFragment : Fragment() {
         adapter.data = viewModel.data
         cuisinesList.adapter = adapter
         cuisinesList.layoutManager = layoutManager
+
+
         super.onViewCreated(view, savedInstanceState)
     }
 
