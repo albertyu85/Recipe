@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 
 import com.example.recipe.R
 import com.example.recipe.databinding.DetailFragmentBinding
@@ -28,12 +30,20 @@ class DetailFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        viewModel.response.observe(this, Observer {
-            detail_textView.text = it.results.size.toString()
-        })
+
+        val adapter = DetailAdapter{clickListener()}
+        //TODO convert live data to list
+        //adapter.data = viewModel.response
+        detail_list.adapter = adapter
+
+
+//        viewModel.response.observe(this, Observer {
+//            detail_textView.text = it.results.size.toString()
+//        })
         return inflater.inflate(R.layout.detail_fragment, container, false)
     }
 
-
-
+    private fun clickListener() {
+        Toast.makeText(this.context, "On Clicked", Toast.LENGTH_SHORT).show()
+    }
 }
