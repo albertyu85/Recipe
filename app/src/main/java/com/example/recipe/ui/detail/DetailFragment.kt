@@ -3,6 +3,7 @@ package com.example.recipe.ui.detail
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,18 +29,19 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val args = DetailFragmentArgs.fromBundle(arguments!!)
+        Log.d("DetailFragment", "type: ${args.type} detail: ${args.detail}")
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, DetailViewModelFactory(args.type, args.detail)).get(DetailViewModel::class.java)
 
         val adapter = DetailAdapter{clickListener()}
-        //TODO convert live data to list
-        //adapter.data = viewModel.response
-        detail_list.adapter = adapter
 
 
-//        viewModel.response.observe(this, Observer {
-//            detail_textView.text = it.results.size.toString()
-//        })
+        Log.d("Response: fragment", viewModel.response?.value?.results?.size.toString())
+        viewModel.response.observe(this, Observer {
+            adapter.data = it.results
+            detail_list.adapter = adapter
+        })
         return inflater.inflate(R.layout.detail_fragment, container, false)
     }
 

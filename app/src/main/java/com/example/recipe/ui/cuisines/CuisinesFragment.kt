@@ -33,9 +33,9 @@ class CuisinesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(CuisinesViewModel::class.java)
-        val adapter = CuisinesAdapter {onClick()}
-        val layoutManager = GridLayoutManager(this.context, 2)
+        val adapter = CuisinesAdapter {cuisineTitle : String -> onClick(cuisineTitle)}
         adapter.data = viewModel.data
+        val layoutManager = GridLayoutManager(this.context, 2)
         cuisinesList.adapter = adapter
         cuisinesList.layoutManager = layoutManager
 
@@ -48,8 +48,8 @@ class CuisinesFragment : Fragment() {
 
     }
 
-    private fun onClick() {
-        view?.findNavController()?.navigate(R.id.action_cuisinesFragment_to_detail)
+    private fun onClick(title: String) {
+        view?.findNavController()?.navigate(CuisinesFragmentDirections.actionCuisinesFragmentToDetail("Cuisine", title))
     }
 
 }

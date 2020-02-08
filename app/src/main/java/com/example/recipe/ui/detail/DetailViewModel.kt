@@ -1,5 +1,6 @@
 package com.example.recipe.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,15 +12,24 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(val type: String, val recipe : String) : ViewModel() {
 //    private val _response = MutableLiveData<String>()
 //    val response: LiveData<String>
 //        get() = _response
     val response = liveData {
-        val recipeList = getCuisines("Chinese")
+        val recipeList = when(type) {
+            "Cuisine" -> getCuisines(recipe)
+            "Diet" -> getDiets(recipe)
+            else -> getMealTypes(recipe)
+        }
+
+
         emit(recipeList)
     }
-    val test = "test"
 
     private suspend fun getCuisines(cuisine: String) = RecipeApi.retrofitService.getCuisines(cuisine)
+
+    private suspend fun getDiets(diet: String) = RecipeApi.retrofitService.getDiets(diet)
+
+    private suspend fun getMealTypes(mealType : String) = RecipeApi.retrofitService.getMealTypes(mealType)
 }

@@ -47,10 +47,10 @@ interface RecipeApiService {
     suspend fun getCuisines(@Query("cuisine") cuisine: String) : RecipeList
 
     @GET("search/")
-    fun getDiets(@Query("diet") diet: String) : Call<String>
+    suspend fun getDiets(@Query("diet") diet: String) : RecipeList
 
     @GET("search/")
-    fun getMealTypes(@Query("type") type : String) : Call<String>
+    suspend fun getMealTypes(@Query("type") type : String) : RecipeList
 
 }
 

@@ -9,7 +9,7 @@ import com.example.recipe.R
 import com.example.recipe.ui.cuisines.CuisinesAdapter
 
 
-class DietAdapter(val listener : () -> Unit) : RecyclerView.Adapter<DietAdapter.ViewHolder>() {
+class DietAdapter(val listener : (diet: String) -> Unit) : RecyclerView.Adapter<DietAdapter.ViewHolder>() {
     var data = listOf<String>()
         set(value) {
             field = value
@@ -33,9 +33,9 @@ class DietAdapter(val listener : () -> Unit) : RecyclerView.Adapter<DietAdapter.
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val dietName = itemView.findViewById<TextView>(R.id.list_diet_title)
-        fun bind(clickListener : () -> Unit) {
+        fun bind(clickListener : (diet: String) -> Unit) {
             itemView.setOnClickListener {
-                clickListener()
+                clickListener(dietName.text.toString())
             }
         }
     }

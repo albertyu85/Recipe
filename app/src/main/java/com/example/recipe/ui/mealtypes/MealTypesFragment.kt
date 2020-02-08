@@ -29,7 +29,7 @@ class MealTypesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(MealTypesViewModel::class.java)
-        val adapter = MealTypesAdapter{onClick()}
+        val adapter = MealTypesAdapter{recipe: String -> onClick(recipe)}
         val layout = GridLayoutManager(this.context, 2)
         adapter.data = viewModel.data
         meal_types_list.adapter = adapter
@@ -42,8 +42,8 @@ class MealTypesFragment : Fragment() {
 
     }
 
-    private fun onClick() {
-        view?.findNavController()?.navigate(R.id.action_mealTypesFragment_to_detail)
+    private fun onClick(recipe: String) {
+        view?.findNavController()?.navigate(MealTypesFragmentDirections.actionMealTypesFragmentToDetail("Meal Type", recipe))
     }
 
 }
