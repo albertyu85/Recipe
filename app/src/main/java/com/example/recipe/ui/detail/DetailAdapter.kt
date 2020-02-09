@@ -28,11 +28,15 @@ class DetailAdapter(val listener : () -> Unit) : RecyclerView.Adapter<DetailAdap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         holder.title.text = item.title
+        holder.servings.text = "Servings: ${item.servings}"
+        holder.minutes.text = "Ready in: ${item.readyInMinutes} minutes"
         holder.bind(listener)
     }
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val title = itemView.findViewById<TextView>(R.id.list_detail_title)
+        val servings = itemView.findViewById<TextView>(R.id.servings_textView)
+        val minutes = itemView.findViewById<TextView>(R.id.minutes_textView)
         fun bind(listener: () -> Unit) {
             itemView.setOnClickListener {
                 listener()
