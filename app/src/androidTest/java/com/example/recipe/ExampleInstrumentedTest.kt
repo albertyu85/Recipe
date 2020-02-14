@@ -1,12 +1,19 @@
 package com.example.recipe
 
+import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.recipe.data.RecipeDao
+import com.example.recipe.data.RecipeDatabase
+import com.example.recipe.model.Recipe
+import org.junit.After
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import org.junit.Before
+import java.io.IOException
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -15,10 +22,34 @@ import org.junit.Assert.*
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+//
+    private lateinit var recipeDao: RecipeDao
+    private lateinit var db: RecipeDatabase
+
+    @Before
+    fun createDb() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        // Using an in-memory database because the information stored here disappears when the
+        // process is killed.
+        db = Room.inMemoryDatabaseBuilder(context, RecipeDatabase::class.java)
+                // Allowing main thread queries, just for testing.
+                .allowMainThreadQueries()
+                .build()
+        recipeDao = db.recipeDao()
+    }
+
+    @After
+    @Throws(IOException::class)
+    fun closeDb() {
+        db.close()
+    }
+
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.recipe", appContext.packageName)
+    @Throws(Exception::class)
+    fun insertAndGetNight() {
+        val recipe = Recipe(1, "test", 1, 1, "test")
+        recipeDao.insert(recipe)
+        val cur = recipeDao.getRecipe(1)
+        assertEquals(cur?.id, 1)
     }
 }
