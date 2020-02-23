@@ -1,6 +1,7 @@
 package com.example.recipe.model
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "recipe_table")
@@ -10,5 +11,7 @@ data class Recipe(
         val image: String = "",
         val readyInMinutes : Int,
         val servings: Int,
-        val title: String
+        val title: String,
+        var type: String? = null,
+        var detail: String? = null
         )

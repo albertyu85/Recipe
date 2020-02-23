@@ -40,7 +40,6 @@ class DetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, DetailViewModelFactory(args.type, args.detail, database)).get(DetailViewModel::class.java)
         val adapter = DetailAdapter{clickListener()}
 
-
         //Log.d("Response: fragment", viewModel.response?.value?.results?.size.toString())
         viewModel.response.observe(this, Observer {
             adapter.data = it

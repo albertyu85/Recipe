@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.recipe.model.Recipe
 
-@Database(entities = [Recipe::class], version = 1)
+@Database(entities = [Recipe::class], version = 3)
 abstract class RecipeDatabase : RoomDatabase() {
 
     abstract fun recipeDao() : RecipeDao
@@ -23,6 +23,7 @@ abstract class RecipeDatabase : RoomDatabase() {
             Room.databaseBuilder(context.applicationContext,
                 RecipeDatabase::class.java,
                 "Recipe.db")
+                .fallbackToDestructiveMigration()
                 .build()
     }
 }

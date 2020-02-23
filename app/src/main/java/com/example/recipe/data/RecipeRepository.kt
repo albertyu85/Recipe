@@ -1,78 +1,97 @@
 package com.example.recipe.data
 
-import android.icu.util.Calendar
-import android.provider.Settings
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import com.example.recipe.model.Recipe
-import com.example.recipe.model.RecipeList
-import com.example.recipe.ui.detail.DetailViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
-import java.util.*
 
 class RecipeRepository(
     private val type: String,
-    private val recipe: String,
+    private val detail: String,
     private val recipeDao : RecipeDao,
     private val recipeService : RecipeApi
 ) {
 
     init {
         GlobalScope.launch(Dispatchers.IO) {
-            if (recipeDao.isEmpty() == 0) {
-                Log.d("Repository", "Database empty")
-                getAllRecipes()
+            if (recipeDao.isTypeAndDetailEmpty(type, detail) == 0) {
+                Log.d("Repository", "Type and Detail empty")
+                when(type) {
+                    "Cuisine" -> persistCuisine()
+                    "Diet" -> persistDiet()
+                    else -> persistMealType()
+                }
             }
         }
+//
+//        GlobalScope.launch(Dispatchers.IO) {
+//            if (recipeDao.isTypeAndDetailEmpty(type, detail) == 0) {
+//                Log.d("Repository", "Type and Detail empty")
+//                getAllRecipes()
+//            }
+//        }
     }
 
     suspend fun getAllRecipes() {
         Log.d("Repository", "API")
         val recipeList = when (type) {
-            "Cuisine" -> recipeService.retrofitService.getCuisines(recipe).results
-            "Diet" -> recipeService.retrofitService.getDiets(recipe).results
-            else -> recipeService.retrofitService.getMealTypes(recipe).results
+            "Cuisine" -> recipeService.retrofitService.getCuisines(detail).results
+            "Diet" -> recipeService.retrofitService.getDiets(detail).results
+            else -> recipeService.retrofitService.getMealTypes(detail).results
         }
         persistData(recipeList)
 
     }
 
+    suspend fun persistCuisine() {
+        persistData(recipeService.retrofitService.getCuisines(detail).results)
+    }
+
+    suspend fun persistDiet() {
+        persistData(recipeService.retrofitService.getDiets(detail).results)
+    }
+
+    suspend fun persistMealType() {
+        persistData(recipeService.retrofitService.getMealTypes(detail).results)
+    }
+
 
     fun fetchRecipes(): LiveData<List<Recipe>> {
         Log.d("Repository", "Database Fetch")
-        return recipeDao.getAllRecipes()
+        return recipeDao.getTypeAndDetail(type, detail)
     }
 
     private fun persistData(recipeList: List<Recipe>) {
         GlobalScope.launch(Dispatchers.IO) {
             Log.d("Repository", "Inserting in database")
             for (recipe in recipeList) {
+                recipe.type = type
+                recipe.detail = detail
                 recipeDao.insert(recipe)
             }
         }
     }
 
-//    suspend fun persistCuisine(recipe: String) {
+//    suspend fun persistCuisine(detail: String) {
 //
-//        val recipeList = recipeService.retrofitService.getCuisines(recipe)
+//        val recipeList = recipeService.retrofitService.getCuisines(detail)
 //        for (r in recipeList.results) {
 //            recipeDao.insert(r)
 //        }
 //    }
 //
-//    suspend fun persistMealType(recipe: String) {
-//        val recipeList = recipeService.retrofitService.getMealTypes(recipe)
+//    suspend fun persistMealType(detail: String) {
+//        val recipeList = recipeService.retrofitService.getMealTypes(detail)
 //        for (r in recipeList.results) {
 //            recipeDao.insert(r)
 //        }
 //    }
 //
-//    suspend fun persistDietType(recipe: String) {
-//        val recipeList = recipeService.retrofitService.getDiets(recipe)
+//    suspend fun persistDietType(detail: String) {
+//        val recipeList = recipeService.retrofitService.getDiets(detail)
 //        for (r in recipeList.results) {
 //            recipeDao.insert(r)
 //        }
