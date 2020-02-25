@@ -1,4 +1,4 @@
-package com.example.recipe.ui
+package com.example.recipe.ui.directions
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,20 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 
 import com.example.recipe.R
-import com.example.recipe.data.RecipeApi
 import com.example.recipe.databinding.DirectionsFragmentBinding
-import com.example.recipe.model.Recipe
-import com.example.recipe.ui.detail.DetailFragmentArgs
 import kotlinx.android.synthetic.main.directions_fragment.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class DirectionsFragment : Fragment() {
     private lateinit var viewModel: DirectionsViewModel
@@ -33,12 +27,19 @@ class DirectionsFragment : Fragment() {
         val args = DirectionsFragmentArgs.fromBundle(arguments!!)
         val binding : DirectionsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.directions_fragment, container, false)
         val view = binding.root
-        viewModel = ViewModelProviders.of(this, DirectionsViewModelFactory(args.recipeID)).get(DirectionsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this,
+            DirectionsViewModelFactory(args.recipeID)
+        ).get(DirectionsViewModel::class.java)
         viewModel.getRecipeInformation()
+        val adapter = DirectionsAdapter()
+        binding.recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
         viewModel.recipeInfo.observe(this, Observer {
             Glide.with(view)
                 .load(it.image)
                 .into(binding.recipeImage)
+            adapter.data = it.extendedIngredients
+            Log.d("Directions Fragment", "${it.extendedIngredients}")
+            binding.recyclerViewIngredientsList.adapter = adapter
         })
 
         return view

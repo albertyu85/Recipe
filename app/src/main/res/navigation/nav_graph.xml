@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/directionsFragment"
-        android:name="com.example.recipe.ui.DirectionsFragment"
+        android:name="com.example.recipe.ui.directions.DirectionsFragment"
         android:label="directions_fragment"
         tools:layout="@layout/directions_fragment" >
         <argument

@@ -11,16 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.DirectionsFragment">
+        tools:context=".ui.directions.DirectionsFragment">
 
         <ImageView
             android:id="@+id/recipeImage"
-            android:layout_width="556dp"
+            android:layout_width="match_parent"
             android:layout_height="370dp"
             android:src="@mipmap/ic_launcher" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_ingredients"
+            android:id="@+id/recyclerView_ingredients_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/button_directions"

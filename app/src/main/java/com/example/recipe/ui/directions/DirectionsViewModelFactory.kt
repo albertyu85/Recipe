@@ -1,4 +1,4 @@
-package com.example.recipe.ui
+package com.example.recipe.ui.directions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
