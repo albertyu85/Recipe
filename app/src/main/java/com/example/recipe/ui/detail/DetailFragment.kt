@@ -38,7 +38,7 @@ class DetailFragment : Fragment() {
         database = RecipeDatabase.getInstance(this.requireContext())
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
         viewModel = ViewModelProviders.of(this, DetailViewModelFactory(args.type, args.detail, database)).get(DetailViewModel::class.java)
-        val adapter = DetailAdapter{clickListener()}
+        val adapter = DetailAdapter{recipeID: Int -> clickListener(recipeID)}
 
         //Log.d("Response: fragment", viewModel.response?.value?.results?.size.toString())
         viewModel.response.observe(this, Observer {
@@ -48,7 +48,7 @@ class DetailFragment : Fragment() {
         return inflater.inflate(R.layout.detail_fragment, container, false)
     }
 
-    private fun clickListener() {
-        Toast.makeText(this.context, "On Clicked", Toast.LENGTH_SHORT).show()
+    private fun clickListener(recipeID: Int) {
+        view?.findNavController()?.navigate(DetailFragmentDirections.actionDetailToDirectionsFragment(recipeID))
     }
 }

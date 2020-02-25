@@ -99,6 +99,7 @@ class RecipeRepository(
 
     private fun isFetchNeeded(lastFetchTime: ZonedDateTime): Boolean {
         val thirtyMinutesAgo = ZonedDateTime.now().minusMinutes(30)
-        return lastFetchTime.isBefore(thirtyMinutesAgo)
+        val twoMinutesAgo = ZonedDateTime.now().minusMinutes(2)
+        return lastFetchTime.isBefore(twoMinutesAgo)
     }
 }

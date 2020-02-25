@@ -22,6 +22,9 @@ interface RecipeDao {
     @Query("SELECT COUNT(*) FROM recipe_table")
     fun isEmpty() : Int
 
+    @Query("SELECT COUNT(*) FROM recipe_table WHERE id = :id")
+    fun containsRecipe(id: Int) : Int
+
     @Query("SELECT COUNT(*) FROM recipe_table WHERE type = :type AND detail = :detail")
     fun isTypeAndDetailEmpty(type: String, detail: String) : Int
 

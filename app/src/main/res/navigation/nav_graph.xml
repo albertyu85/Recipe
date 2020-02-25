@@ -43,5 +43,17 @@
         <argument
             android:name="detail"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detail_to_directionsFragment"
+            app:destination="@id/directionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/directionsFragment"
+        android:name="com.example.recipe.ui.DirectionsFragment"
+        android:label="directions_fragment"
+        tools:layout="@layout/directions_fragment" >
+        <argument
+            android:name="recipeID"
+            app:argType="integer" />
     </fragment>
 </navigation>
