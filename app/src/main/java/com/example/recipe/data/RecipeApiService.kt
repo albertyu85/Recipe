@@ -1,6 +1,7 @@
 package com.example.recipe.data
 
 import com.example.recipe.model.Recipe
+import com.example.recipe.model.RecipeInformation
 import com.example.recipe.model.RecipeList
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -11,6 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.spoonacular.com/recipes/"
@@ -51,6 +53,9 @@ interface RecipeApiService {
 
     @GET("search/")
     suspend fun getMealTypes(@Query("type") type : String) : RecipeList
+
+    @GET("{id}/information")
+    suspend fun getRecipe(@Path("id") id: Int, @Query("includeNutrition") includeNutrition: Boolean = false) : RecipeInformation
 
 }
 

@@ -8,35 +8,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 
 import com.example.recipe.R
+import com.example.recipe.data.RecipeApi
+import com.example.recipe.databinding.DirectionsFragmentBinding
+import com.example.recipe.model.Recipe
 import com.example.recipe.ui.detail.DetailFragmentArgs
 import kotlinx.android.synthetic.main.directions_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class DirectionsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = DirectionsFragment()
-    }
-
     private lateinit var viewModel: DirectionsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val args = DirectionsFragmentArgs.fromBundle(arguments!!)
-        val view =inflater.inflate(R.layout.directions_fragment, container, false)
-        Log.d("Directions", "Id: ${args.recipeID}")
-        val textView = view.findViewById<TextView>(R.id.textView)
-        textView.text = args.recipeID.toString()
+        val binding : DirectionsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.directions_fragment, container, false)
+        val view = binding.root
+        viewModel = ViewModelProviders.of(this, DirectionsViewModelFactory(args.recipeID)).get(DirectionsViewModel::class.java)
+        viewModel.getRecipeInformation()
+        viewModel.recipeInfo.observe(this, Observer {
+            Glide.with(view)
+                .load(it.image)
+                .into(binding.recipeImage)
+        })
+
         return view
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(DirectionsViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }

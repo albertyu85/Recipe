@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.DirectionsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/textView"
+    <data>
+
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Directions Fragment" />
+        android:orientation="vertical"
+        tools:context=".ui.DirectionsFragment">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/recipeImage"
+            android:layout_width="556dp"
+            android:layout_height="370dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/button_directions"
+            android:layout_below="@+id/recipeImage"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/button_directions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="1dp"
+            android:text="Button" />
+
+    </RelativeLayout>
+</layout>
