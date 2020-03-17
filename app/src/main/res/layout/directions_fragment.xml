@@ -13,6 +13,13 @@
         android:orientation="vertical"
         tools:context=".ui.directions.DirectionsFragment">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
         <ImageView
             android:id="@+id/recipeImage"
             android:layout_width="match_parent"

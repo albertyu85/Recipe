@@ -39,14 +39,20 @@ class DirectionsFragment : Fragment() {
         viewModel.getRecipeInformation()
         val adapter = DirectionsAdapter()
         binding.recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
+        binding.progressBar.visibility = View.VISIBLE
+        binding.recipeImage.visibility = View.GONE
         viewModel.recipeInfo.observe(this, Observer {
             Glide.with(view)
                 .load(it.image)
                 .into(binding.recipeImage)
+            binding.recipeImage.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
             adapter.data = it.extendedIngredients
             Log.d("Directions Fragment", "${it.extendedIngredients}")
             binding.recyclerViewIngredientsList.adapter = adapter
         })
+
+
         val buttonDirections = view.findViewById<Button>(R.id.button_directions)
         buttonDirections.setOnClickListener {
             openDirections(viewModel.recipeInfo.value)
