@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_cuisinesFragment_to_detail"
             app:destination="@id/detail" />
+        <action
+            android:id="@+id/action_cuisinesFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/dietsFragment"
@@ -56,4 +59,9 @@
             android:name="recipeID"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.recipe.ui.cart.CartFragment"
+        android:label="cart_fragment"
+        tools:layout="@layout/cart_fragment" />
 </navigation>
