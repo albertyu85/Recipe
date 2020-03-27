@@ -24,16 +24,6 @@ class DetailViewModel(val type: String, val recipe : String, recipeDatabase: Rec
     private val _response = MutableLiveData<List<Recipe>>()
     val response: LiveData<List<Recipe>>
         get() = _response
-//    val response = liveData {
-//        val recipeList = when(type) {
-//            "Cuisine" -> getCuisines(recipe)
-//            "Diet" -> getDiets(recipe)
-//            else -> getMealTypes(recipe)
-//        }
-//
-//
-//        emit(recipeList)
-//    }
 
     init {
         val repo = RecipeRepository(type, recipe, recipeDatabase.recipeDao(), RecipeApi)
@@ -43,9 +33,4 @@ class DetailViewModel(val type: String, val recipe : String, recipeDatabase: Rec
         }
     }
 
-//    private suspend fun getCuisines(cuisine: String) = RecipeApi.retrofitService.getCuisines(cuisine)
-//
-//    private suspend fun getDiets(diet: String) = RecipeApi.retrofitService.getDiets(diet)
-//
-//    private suspend fun getMealTypes(mealType : String) = RecipeApi.retrofitService.getMealTypes(mealType)
 }
