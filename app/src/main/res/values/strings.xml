@@ -5,4 +5,5 @@
     <string name="diets">Diets</string>
     <string name="cart">Cart</string>
     <string name="content_description">Recipe Image</string>
+    <string name="add_to_cart">Add To Cart</string>
 </resources>

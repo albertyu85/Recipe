@@ -27,9 +27,9 @@ class DirectionsAdapter : RecyclerView.Adapter<DirectionsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("Directions Adapter", "Binding")
         val item = data[position]
-        Glide.with(holder.itemView)
-            .load(item.image)
-            .into(holder.image)
+//        Glide.with(holder.itemView)
+//            .load(item.image)
+//            .into(holder.image)
         holder.name.text = item.name
         holder.amount.text = "$${item.amount}"
     }
@@ -45,7 +45,7 @@ class DirectionsAdapter : RecyclerView.Adapter<DirectionsAdapter.ViewHolder>() {
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image = itemView.item_image_view
+        //val image = itemView.item_image_view
         val name = itemView.item_name
         val amount = itemView.item_amount
     }
