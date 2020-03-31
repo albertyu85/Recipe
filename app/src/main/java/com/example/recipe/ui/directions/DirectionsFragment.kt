@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +38,7 @@ class DirectionsFragment : Fragment() {
             DirectionsViewModelFactory(args.recipeID)
         ).get(DirectionsViewModel::class.java)
         viewModel.getRecipeInformation()
-        val adapter = DirectionsAdapter()
+        val adapter = DirectionsAdapter { onClick()}
         binding.recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
         binding.progressBar.visibility = View.VISIBLE
         binding.recipeImage.visibility = View.GONE
@@ -64,5 +65,9 @@ class DirectionsFragment : Fragment() {
         val openURL = Intent(android.content.Intent.ACTION_VIEW)
         openURL.data = Uri.parse(recipeInformation?.sourceUrl)
         startActivity(openURL)
+    }
+
+    private fun onClick() {
+        Toast.makeText(this.context, "Added to Cart", Toast.LENGTH_SHORT).show()
     }
 }
