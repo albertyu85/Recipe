@@ -11,13 +11,14 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipe.R
+import com.example.recipe.model.Cart
 import com.example.recipe.model.Ingredients
 import com.example.recipe.model.RecipeInformation
 import com.example.recipe.ui.cuisines.CuisinesAdapter
 import com.example.recipe.ui.detail.DetailAdapter
 import kotlinx.android.synthetic.main.list_item_directions.view.*
 
-class DirectionsAdapter(val listener: () -> Unit) : RecyclerView.Adapter<DirectionsAdapter.ViewHolder>() {
+class DirectionsAdapter(val listener: (cart: Cart) -> Unit) : RecyclerView.Adapter<DirectionsAdapter.ViewHolder>() {
 
     var data = listOf<Ingredients>()
         set(value) {
@@ -46,8 +47,8 @@ class DirectionsAdapter(val listener: () -> Unit) : RecyclerView.Adapter<Directi
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.item_name
         val amount = itemView.item_amount
-        fun bind(clickListener: () -> Unit) {
-            itemView.add_button.setOnClickListener { clickListener() }
+        fun bind(clickListener: (cart: Cart) -> Unit) {
+            itemView.add_button.setOnClickListener { clickListener(Cart(name.text.toString(), amount.text.toString())) }
         }
     }
 }

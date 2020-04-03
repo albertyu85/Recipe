@@ -17,9 +17,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 
 import com.example.recipe.R
+import com.example.recipe.data.RecipeDatabase
 import com.example.recipe.databinding.DirectionsFragmentBinding
+import com.example.recipe.model.Cart
+import com.example.recipe.model.Ingredients
 import com.example.recipe.model.RecipeInformation
 import kotlinx.android.synthetic.main.directions_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import com.example.recipe.data.CartDao as CartDao
 
 class DirectionsFragment : Fragment() {
     private lateinit var viewModel: DirectionsViewModel
@@ -38,7 +45,7 @@ class DirectionsFragment : Fragment() {
             DirectionsViewModelFactory(args.recipeID)
         ).get(DirectionsViewModel::class.java)
         viewModel.getRecipeInformation()
-        val adapter = DirectionsAdapter { onClick()}
+        val adapter = DirectionsAdapter { cart: Cart -> onClick(cart)}
         binding.recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
         binding.progressBar.visibility = View.VISIBLE
         binding.recipeImage.visibility = View.GONE
@@ -67,7 +74,11 @@ class DirectionsFragment : Fragment() {
         startActivity(openURL)
     }
 
-    private fun onClick() {
+    private fun onClick(cart: Cart) {
         Toast.makeText(this.context, "Added to Cart", Toast.LENGTH_SHORT).show()
+        GlobalScope.launch(Dispatchers.IO) {
+            RecipeDatabase.getInstance(context!!).cartDao().insertCart(cart)
+        }
+
     }
 }

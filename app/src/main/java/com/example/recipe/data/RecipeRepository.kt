@@ -2,6 +2,7 @@ package com.example.recipe.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import com.example.recipe.model.Cart
 import com.example.recipe.model.Recipe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -26,13 +27,6 @@ class RecipeRepository(
                 }
             }
         }
-//
-//        GlobalScope.launch(Dispatchers.IO) {
-//            if (recipeDao.isTypeAndDetailEmpty(type, detail) == 0) {
-//                Log.d("Repository", "Type and Detail empty")
-//                getAllRecipes()
-//            }
-//        }
     }
 
     suspend fun getAllRecipes() {
@@ -58,6 +52,11 @@ class RecipeRepository(
         persistData(recipeService.retrofitService.getMealTypes(detail).results)
     }
 
+//    suspend fun persistCart(cart : Cart) {
+//        GlobalScope.launch(Dispatchers.IO) {
+//            cartDao.insertCart(cart)
+//        }
+//    }
 
     fun fetchRecipes(): LiveData<List<Recipe>> {
         Log.d("Repository", "Database Fetch")
@@ -74,28 +73,6 @@ class RecipeRepository(
             }
         }
     }
-
-//    suspend fun persistCuisine(detail: String) {
-//
-//        val recipeList = recipeService.retrofitService.getCuisines(detail)
-//        for (r in recipeList.results) {
-//            recipeDao.insert(r)
-//        }
-//    }
-//
-//    suspend fun persistMealType(detail: String) {
-//        val recipeList = recipeService.retrofitService.getMealTypes(detail)
-//        for (r in recipeList.results) {
-//            recipeDao.insert(r)
-//        }
-//    }
-//
-//    suspend fun persistDietType(detail: String) {
-//        val recipeList = recipeService.retrofitService.getDiets(detail)
-//        for (r in recipeList.results) {
-//            recipeDao.insert(r)
-//        }
-//    }
 
     private fun isFetchNeeded(lastFetchTime: ZonedDateTime): Boolean {
         val thirtyMinutesAgo = ZonedDateTime.now().minusMinutes(30)
