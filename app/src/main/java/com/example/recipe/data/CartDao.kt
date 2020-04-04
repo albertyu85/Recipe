@@ -1,5 +1,6 @@
 package com.example.recipe.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,5 +13,8 @@ interface CartDao {
 
     @Insert
     fun insertCart(cart: Cart)
+
+    @Query("SELECT * FROM cart_table")
+    fun getCart() : LiveData<List<Cart>>
 
 }

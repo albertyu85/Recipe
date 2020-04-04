@@ -3,6 +3,7 @@ package com.example.recipe.ui.directions
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recipe.data.RecipeApi
+import com.example.recipe.model.Cart
 import com.example.recipe.model.RecipeInformation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,12 +18,10 @@ class DirectionsViewModel(val recipeId: Int) : ViewModel() {
     private val scope = CoroutineScope(coroutineContext)
 
     val recipeInfo = MutableLiveData<RecipeInformation>()
-
     fun getRecipeInformation() {
         scope.launch {
             val recipe = RecipeApi.retrofitService.getRecipe(recipeId)
             recipeInfo.postValue(recipe)
         }
-
     }
 }

@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
+import com.example.recipe.model.Cart
 import com.example.recipe.model.Ingredients
 import com.example.recipe.ui.detail.DetailAdapter
 import kotlinx.android.synthetic.main.list_item_cart.view.*
 
 class CartAdapter : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
-    var ingredients = listOf<Ingredients>()
+    var cart = listOf<Cart>()
     set(value) {
         field =  value
         notifyDataSetChanged()
@@ -25,11 +26,11 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return ingredients.size
+        return cart.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = ingredients[position]
+        val item = cart[position]
         holder.name.text = item.name
 
     }

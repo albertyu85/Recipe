@@ -48,7 +48,7 @@ class DirectionsAdapter(val listener: (cart: Cart) -> Unit) : RecyclerView.Adapt
         val name = itemView.item_name
         val amount = itemView.item_amount
         fun bind(clickListener: (cart: Cart) -> Unit) {
-            itemView.add_button.setOnClickListener { clickListener(Cart(name.text.toString(), amount.text.toString())) }
+            itemView.add_button.setOnClickListener { clickListener(Cart(0, name.text.toString(), amount.text.toString())) }
         }
     }
 }
