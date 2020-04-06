@@ -9,11 +9,17 @@
 
     <TextView
         android:id="@+id/list_cart_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:paddingLeft="16dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete" />
 
 
 </LinearLayout>
