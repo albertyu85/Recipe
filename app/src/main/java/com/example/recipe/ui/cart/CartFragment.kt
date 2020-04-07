@@ -18,12 +18,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import com.example.recipe.data.RecipeDatabase
 import com.example.recipe.databinding.CartFragmentBinding
+import com.example.recipe.model.Cart
 import com.example.recipe.ui.detail.DetailViewModel
 import com.example.recipe.ui.detail.DetailViewModelFactory
 import com.example.recipe.ui.mealtypes.MealTypesAdapter
 import kotlinx.android.synthetic.main.cart_fragment.*
 import kotlinx.android.synthetic.main.list_item_cart.*
 import kotlinx.android.synthetic.main.meal_types_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CartFragment : Fragment() {
 
@@ -41,7 +45,7 @@ class CartFragment : Fragment() {
         val view = binding.root
         val database = RecipeDatabase.getInstance(this.requireContext())
         viewModel = ViewModelProviders.of(this, CartViewModelFactory(database)).get(CartViewModel::class.java)
-        val cartAdapter = CartAdapter{ name : String -> onClick(name)}
+        val cartAdapter = CartAdapter{ cart : Cart -> onClick(cart)}
 
         viewModel.cart.observe(this, Observer {
             cartAdapter.cart = it
@@ -52,9 +56,11 @@ class CartFragment : Fragment() {
         return view
     }
 
-    private fun onClick(name : String) {
-        Log.d("Cart", "onClicked!")
-        Toast.makeText(this.context, "Deleted $name", Toast.LENGTH_SHORT).show()
+    private fun onClick(cart : Cart) {
+        GlobalScope.launch(Dispatchers.IO) {
+            RecipeDatabase.getInstance(context!!).cartDao().deleteItem(cart)
+        }
+        Toast.makeText(this.context, "Deleted $cart.name", Toast.LENGTH_SHORT).show()
     }
 
 }

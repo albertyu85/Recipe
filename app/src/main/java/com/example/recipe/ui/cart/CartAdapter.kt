@@ -12,7 +12,7 @@ import com.example.recipe.model.Ingredients
 import com.example.recipe.ui.detail.DetailAdapter
 import kotlinx.android.synthetic.main.list_item_cart.view.*
 
-class CartAdapter(val listener : (name : String) -> Unit) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+class CartAdapter( val listener : (cart : Cart) -> Unit) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     var cart = listOf<Cart>()
     set(value) {
@@ -33,13 +33,13 @@ class CartAdapter(val listener : (name : String) -> Unit) : RecyclerView.Adapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = cart[position]
         holder.name.text = item.name
-        holder.bind(listener)
+        holder.bind(item.id, item.name, item.amount, listener)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.list_cart_title
-        fun bind(listener: (name: String) -> Unit) {
-            itemView.delete_button.setOnClickListener { listener(name.text.toString()) }
+        fun bind(id: Int, name: String, amount: String, listener: (cart: Cart) -> Unit) {
+            itemView.delete_button.setOnClickListener { listener(Cart(id, name, amount)) }
         }
     }
 }

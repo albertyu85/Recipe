@@ -17,4 +17,7 @@ interface CartDao {
     @Query("SELECT * FROM cart_table")
     fun getCart() : LiveData<List<Cart>>
 
+    @Delete
+    fun deleteItem(cart : Cart)
+
 }
