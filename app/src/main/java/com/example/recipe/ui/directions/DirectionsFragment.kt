@@ -36,13 +36,14 @@ class DirectionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val database : RecipeDatabase = RecipeDatabase.getInstance(this.context!!)
         val args = DirectionsFragmentArgs.fromBundle(arguments!!)
         val binding: DirectionsFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.directions_fragment, container, false)
         val view = binding.root
         viewModel = ViewModelProviders.of(
             this,
-            DirectionsViewModelFactory(args.recipeID)
+            DirectionsViewModelFactory(args.recipeID, database)
         ).get(DirectionsViewModel::class.java)
         viewModel.getRecipeInformation()
         val adapter = DirectionsAdapter { cart: Cart -> onClick(cart)}
@@ -76,9 +77,6 @@ class DirectionsFragment : Fragment() {
 
     private fun onClick(cart: Cart) {
         Toast.makeText(this.context, "Added to Cart", Toast.LENGTH_SHORT).show()
-        GlobalScope.launch(Dispatchers.IO) {
-            RecipeDatabase.getInstance(context!!).cartDao().insertCart(cart)
-        }
-
+        viewModel.insertCart(cart)
     }
 }

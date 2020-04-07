@@ -57,9 +57,7 @@ class CartFragment : Fragment() {
     }
 
     private fun onClick(cart : Cart) {
-        GlobalScope.launch(Dispatchers.IO) {
-            RecipeDatabase.getInstance(context!!).cartDao().deleteItem(cart)
-        }
+        viewModel.deleteItem(cart)
         Toast.makeText(this.context, "Deleted $cart.name", Toast.LENGTH_SHORT).show()
     }
 

@@ -7,15 +7,22 @@ import com.example.recipe.data.RecipeDatabase
 import com.example.recipe.data.RecipeRepository
 import com.example.recipe.model.Cart
 import com.example.recipe.model.Ingredients
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CartViewModel(recipeDatabase: RecipeDatabase) : ViewModel() {
 
+    val repo = CartRepository(recipeDatabase.cartDao())
     val cart = MutableLiveData<List<Cart>>()
 
     init {
-        val repo = CartRepository(recipeDatabase.cartDao())
         repo.fetchCart().observeForever {
             cart.postValue(it)
         }
+    }
+
+    fun deleteItem(cart : Cart) {
+        repo.deleteItem(cart)
     }
 }

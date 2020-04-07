@@ -11,4 +11,16 @@ class CartRepository(private val cartDao: CartDao) {
     fun fetchCart() : LiveData<List<Cart>>{
         return cartDao.getCart()
     }
+
+    fun deleteItem(cart: Cart) {
+        GlobalScope.launch(Dispatchers.IO) {
+            cartDao.deleteItem(cart)
+        }
+    }
+
+    fun insertCart(cart: Cart) {
+        GlobalScope.launch(Dispatchers.IO) {
+            cartDao.insertCart(cart)
+        }
+    }
 }
