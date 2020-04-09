@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipe.R
+import com.example.recipe.databinding.DietsFragmentBinding
 import kotlinx.android.synthetic.main.diets_fragment.*
 
 
@@ -19,26 +21,26 @@ class DietsFragment : Fragment() {
     }
 
     private lateinit var viewModel: DietsViewModel
-
+    private lateinit var binding: DietsFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.diets_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.diets_fragment, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         viewModel = ViewModelProviders.of(this).get(DietsViewModel::class.java)
         val adapter = DietAdapter {diet: String -> onClick(diet)}
         val manager = GridLayoutManager(this.context, 2)
         adapter.data = viewModel.data
-        dietList.adapter = adapter
-        dietList.layoutManager = manager
+        binding.apply {
+            dietList.adapter = adapter
+            dietList.layoutManager = manager
+        }
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
     private fun onClick(recipe: String) {

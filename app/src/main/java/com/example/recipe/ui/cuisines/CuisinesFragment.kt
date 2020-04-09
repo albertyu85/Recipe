@@ -29,7 +29,6 @@ class CuisinesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         val view = inflater.inflate(R.layout.cuisines_fragment, container, false)
         binding = DataBindingUtil.inflate<CuisinesFragmentBinding>(inflater, R.layout.cuisines_fragment, container, false)
         return view
@@ -41,16 +40,13 @@ class CuisinesFragment : Fragment() {
         val adapter = CuisinesAdapter {cuisineTitle : String -> onClick(cuisineTitle)}
         adapter.data = viewModel.data
         val layoutManager = GridLayoutManager(this.context, 2)
-        cuisinesList.adapter = adapter
-        cuisinesList.layoutManager = layoutManager
+        binding.apply {
+            cuisinesList.adapter = adapter
+            cuisinesList.layoutManager = layoutManager
+        }
 
 
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
     }
 
     private fun onClick(title: String) {

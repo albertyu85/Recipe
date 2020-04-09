@@ -36,12 +36,13 @@ class CartFragment : Fragment() {
     }
 
     private lateinit var viewModel: CartViewModel
+    private lateinit var binding : CartFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding : CartFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.cart_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.cart_fragment, container, false)
         val view = binding.root
         val database = RecipeDatabase.getInstance(this.requireContext())
         viewModel = ViewModelProviders.of(this, CartViewModelFactory(database)).get(CartViewModel::class.java)
@@ -49,8 +50,10 @@ class CartFragment : Fragment() {
 
         viewModel.cart.observe(this, Observer {
             cartAdapter.cart = it
-            binding.cartList.adapter = cartAdapter
-            binding.cartList.layoutManager = LinearLayoutManager(this.context)
+            binding.apply {
+                cartList.adapter = cartAdapter
+                cartList.layoutManager = LinearLayoutManager(context)
+            }
         })
 
         return view
@@ -58,7 +61,6 @@ class CartFragment : Fragment() {
 
     private fun onClick(cart : Cart) {
         viewModel.deleteItem(cart)
-        Toast.makeText(this.context, "Deleted $cart.name", Toast.LENGTH_SHORT).show()
     }
 
 }

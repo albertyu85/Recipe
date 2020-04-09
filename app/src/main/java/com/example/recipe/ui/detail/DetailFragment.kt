@@ -29,6 +29,7 @@ class DetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
     private lateinit var binding : DetailFragmentBinding
     private lateinit var database: RecipeDatabase
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,12 +41,11 @@ class DetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, DetailViewModelFactory(args.type, args.detail, database)).get(DetailViewModel::class.java)
         val adapter = DetailAdapter{recipeID: Int -> clickListener(recipeID)}
 
-        //Log.d("Response: fragment", viewModel.response?.value?.results?.size.toString())
         viewModel.response.observe(this, Observer {
             adapter.data = it
-            detail_list.adapter = adapter
+            binding.detailList.adapter = adapter
         })
-        return inflater.inflate(R.layout.detail_fragment, container, false)
+        return binding.root
     }
 
     private fun clickListener(recipeID: Int) {

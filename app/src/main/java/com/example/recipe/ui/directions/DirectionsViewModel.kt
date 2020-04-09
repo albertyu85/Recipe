@@ -17,9 +17,7 @@ class DirectionsViewModel(val recipeId: Int, database: RecipeDatabase) : ViewMod
     private val scope = CoroutineScope(coroutineContext)
 
     val repo = CartRepository(database.cartDao())
-    init {
 
-    }
     val recipeInfo = MutableLiveData<RecipeInformation>()
     fun getRecipeInformation() {
         scope.launch {

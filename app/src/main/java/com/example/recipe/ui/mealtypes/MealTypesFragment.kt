@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipe.R
+import com.example.recipe.databinding.MealTypesFragmentBinding
 import kotlinx.android.synthetic.main.meal_types_fragment.*
 
 
@@ -19,6 +20,7 @@ class MealTypesFragment : Fragment() {
     }
 
     private lateinit var viewModel: MealTypesViewModel
+    private lateinit var binding: MealTypesFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,14 +34,11 @@ class MealTypesFragment : Fragment() {
         val adapter = MealTypesAdapter{recipe: String -> onClick(recipe)}
         val layout = GridLayoutManager(this.context, 2)
         adapter.data = viewModel.data
-        meal_types_list.adapter = adapter
-        meal_types_list.layoutManager = layout
+        binding.apply {
+            meal_types_list.adapter = adapter
+            meal_types_list.layoutManager = layout
+        }
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
     }
 
     private fun onClick(recipe: String) {

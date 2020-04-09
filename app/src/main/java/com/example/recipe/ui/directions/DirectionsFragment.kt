@@ -30,6 +30,7 @@ import com.example.recipe.data.CartDao as CartDao
 
 class DirectionsFragment : Fragment() {
     private lateinit var viewModel: DirectionsViewModel
+    private lateinit var binding: DirectionsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,15 +48,21 @@ class DirectionsFragment : Fragment() {
         ).get(DirectionsViewModel::class.java)
         viewModel.getRecipeInformation()
         val adapter = DirectionsAdapter { cart: Cart -> onClick(cart)}
-        binding.recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
-        binding.progressBar.visibility = View.VISIBLE
-        binding.recipeImage.visibility = View.GONE
+        binding.apply {
+            invalidateAll()
+            binding.recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
+            binding.progressBar.visibility = View.VISIBLE
+            binding.recipeImage.visibility = View.GONE
+        }
+
         viewModel.recipeInfo.observe(this, Observer {
             Glide.with(view)
                 .load(it.image)
                 .into(binding.recipeImage)
-            binding.recipeImage.visibility = View.VISIBLE
-            binding.progressBar.visibility = View.GONE
+            binding.apply {
+                recipeImage.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
+            }
             adapter.data = it.extendedIngredients
             Log.d("Directions Fragment", "${it.extendedIngredients}")
             binding.recyclerViewIngredientsList.adapter = adapter
