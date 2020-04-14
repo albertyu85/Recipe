@@ -29,6 +29,14 @@ class RecipeRepository(
         }
     }
 
+    suspend fun refresh() {
+        when(type) {
+            "Cuisine" -> persistCuisine()
+            "Diet" -> persistDiet()
+            else -> persistMealType()
+        }
+    }
+
     suspend fun getAllRecipes() {
         Log.d("Repository", "API")
         val recipeList = when (type) {
@@ -58,7 +66,7 @@ class RecipeRepository(
 //        }
 //    }
 
-    fun fetchRecipes(): LiveData<List<Recipe>> {
+    fun fetchRecipes(): LiveData<MutableList<Recipe>> {
         Log.d("Repository", "Database Fetch")
         return recipeDao.getTypeAndDetail(type, detail)
     }

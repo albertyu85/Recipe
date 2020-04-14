@@ -95,4 +95,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+
 }

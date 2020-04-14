@@ -28,18 +28,15 @@ class CuisinesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val view = inflater.inflate(R.layout.cuisines_fragment, container, false)
-        binding = DataBindingUtil.inflate<CuisinesFragmentBinding>(inflater, R.layout.cuisines_fragment, container, false)
-        return view
+        binding = DataBindingUtil.inflate(inflater, R.layout.cuisines_fragment, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         viewModel = ViewModelProviders.of(this).get(CuisinesViewModel::class.java)
         val adapter = CuisinesAdapter {cuisineTitle : String -> onClick(cuisineTitle)}
-        adapter.data = viewModel.data
         val layoutManager = GridLayoutManager(this.context, 2)
+        adapter.data = viewModel.data
         binding.apply {
             cuisinesList.adapter = adapter
             cuisinesList.layoutManager = layoutManager

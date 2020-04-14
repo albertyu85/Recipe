@@ -40,11 +40,14 @@ class DetailFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
         viewModel = ViewModelProviders.of(this, DetailViewModelFactory(args.type, args.detail, database)).get(DetailViewModel::class.java)
         val adapter = DetailAdapter{recipeID: Int -> clickListener(recipeID)}
-
         viewModel.response.observe(this, Observer {
             adapter.data = it
             binding.detailList.adapter = adapter
         })
+        binding.swipeContainer.setOnRefreshListener {
+            viewModel.refresh()
+            binding.swipeContainer.isRefreshing = false
+        }
         return binding.root
     }
 
