@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_detail_to_directionsFragment"
             app:destination="@id/directionsFragment" />
+        <action
+            android:id="@+id/action_detail_to_directionsActivity"
+            app:destination="@id/directionsActivity" />
     </fragment>
     <fragment
         android:id="@+id/directionsFragment"
@@ -64,4 +67,12 @@
         android:name="com.example.recipe.ui.cart.CartFragment"
         android:label="cart_fragment"
         tools:layout="@layout/cart_fragment" />
+    <activity
+        android:id="@+id/directionsActivity"
+        android:name="com.example.recipe.ui.directions.DirectionsActivity"
+        android:label="DirectionsActivity" >
+        <argument
+            android:name="recipeID"
+            app:argType="integer" />
+    </activity>
 </navigation>

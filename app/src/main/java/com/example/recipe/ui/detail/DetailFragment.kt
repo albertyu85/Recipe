@@ -52,6 +52,8 @@ class DetailFragment : Fragment() {
     }
 
     private fun clickListener(recipeID: Int) {
-        view?.findNavController()?.navigate(DetailFragmentDirections.actionDetailToDirectionsFragment(recipeID))
+//        view?.findNavController()?.navigate(DetailFragmentDirections.actionDetailToDirectionsFragment(recipeID))
+        view?.findNavController()?.navigate(DetailFragmentDirections.actionDetailToDirectionsActivity(recipeID))
+
     }
 }

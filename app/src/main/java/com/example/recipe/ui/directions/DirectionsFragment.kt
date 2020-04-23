@@ -37,42 +37,41 @@ class DirectionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val database : RecipeDatabase = RecipeDatabase.getInstance(this.context!!)
-        val args = DirectionsFragmentArgs.fromBundle(arguments!!)
-        val binding: DirectionsFragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.directions_fragment, container, false)
+//        val database : RecipeDatabase = RecipeDatabase.getInstance(this.context!!)
+//        val args = DirectionsFragmentArgs.fromBundle(arguments!!)
+        binding = DataBindingUtil.inflate(inflater, R.layout.directions_fragment, container, false)
         val view = binding.root
-        viewModel = ViewModelProviders.of(
-            this,
-            DirectionsViewModelFactory(args.recipeID, database)
-        ).get(DirectionsViewModel::class.java)
-        viewModel.getRecipeInformation()
-        val adapter = DirectionsAdapter { cart: Cart -> onClick(cart)}
-        binding.apply {
-            invalidateAll()
-            binding.recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
-            binding.progressBar.visibility = View.VISIBLE
-            binding.recipeImage.visibility = View.GONE
-        }
-
-        viewModel.recipeInfo.observe(this, Observer {
-            Glide.with(view)
-                .load(it.image)
-                .into(binding.recipeImage)
-            binding.apply {
-                recipeImage.visibility = View.VISIBLE
-                progressBar.visibility = View.GONE
-            }
-            adapter.data = it.extendedIngredients
-            Log.d("Directions Fragment", "${it.extendedIngredients}")
-            binding.recyclerViewIngredientsList.adapter = adapter
-        })
-
-
-        val buttonDirections = view.findViewById<Button>(R.id.button_directions)
-        buttonDirections.setOnClickListener {
-            openDirections(viewModel.recipeInfo.value)
-        }
+//        viewModel = ViewModelProviders.of(
+//            this,
+//            DirectionsViewModelFactory(args.recipeID, database)
+//        ).get(DirectionsViewModel::class.java)
+//        viewModel.getRecipeInformation()
+//        val adapter = DirectionsAdapter { cart: Cart -> onClick(cart)}
+//        binding.apply {
+//            invalidateAll()
+//            binding.recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
+//            binding.progressBar.visibility = View.VISIBLE
+//            binding.recipeImage.visibility = View.GONE
+//        }
+//
+//        viewModel.recipeInfo.observe(this, Observer {
+//            Glide.with(view)
+//                .load(it.image)
+//                .into(binding.recipeImage)
+//            binding.apply {
+//                recipeImage.visibility = View.VISIBLE
+//                progressBar.visibility = View.GONE
+//            }
+//            adapter.data = it.extendedIngredients
+//            Log.d("Directions Fragment", "${it.extendedIngredients}")
+//            binding.recyclerViewIngredientsList.adapter = adapter
+//        })
+//
+//
+//        val buttonDirections = view.findViewById<Button>(R.id.button_directions)
+//        buttonDirections.setOnClickListener {
+//            openDirections(viewModel.recipeInfo.value)
+//        }
         return view
     }
 
