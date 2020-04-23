@@ -1,5 +1,7 @@
 package com.example.recipe.ui.directions
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -34,7 +36,7 @@ class DirectionsActivity : AppCompatActivity() {
         getRecipeInfo(args)
         val adapter = DirectionsAdapter { cart: Cart -> onClick(cart)}
 
-//        recyclerView_ingredients_list.layoutManager = LinearLayoutManager(this)
+        recyclerView_ingredients_list.layoutManager = LinearLayoutManager(this)
 //        progressBar.visibility = View.VISIBLE
 //        expandedImage.visibility = View.GONE
 
@@ -44,10 +46,13 @@ class DirectionsActivity : AppCompatActivity() {
                     .into(expandedImage)
 //            recipeImage.visibility = View.VISIBLE
 //            progressBar.visibility = View.GONE
-//            adapter.data = it.extendedIngredients
-//            recyclerView_ingredients_list.adapter = adapter
+            adapter.data = it.extendedIngredients
+            recyclerView_ingredients_list.adapter = adapter
         })
 
+        button_directions2.setOnClickListener {
+            openDirections(recipeInfo.value)
+        }
     }
 
     private fun getRecipeInfo(id: Int) {
@@ -56,7 +61,11 @@ class DirectionsActivity : AppCompatActivity() {
             recipeInfo.postValue(recipe)
         }
     }
-
+    private fun openDirections(recipeInformation: RecipeInformation?) {
+        val openURL = Intent(Intent.ACTION_VIEW)
+        openURL.data = Uri.parse(recipeInformation?.sourceUrl)
+        startActivity(openURL)
+    }
     private fun insertCart(cart: Cart) {
         database.cartDao().insertCart(cart)
     }
