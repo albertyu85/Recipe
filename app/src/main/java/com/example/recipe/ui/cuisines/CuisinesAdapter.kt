@@ -5,9 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipe.MainActivity
 import com.example.recipe.R
-import com.example.recipe.ui.detail.DetailFragment
 
 class CuisinesAdapter(val listener: (title : String) -> Unit) : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
     var data = listOf<String>()
