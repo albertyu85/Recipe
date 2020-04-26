@@ -17,13 +17,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         val navController : NavController = findNavController(R.id.nav_host_fragment)
         bottom_nav.setupWithNavController(navController)
-//        NavigationUI.setupActionBarWithNavController(this, navController)
-        NavigationUI.setupWithNavController(toolbar, navController)
+        NavigationUI.setupActionBarWithNavController(this, navController)
+
+
 
     }
 
