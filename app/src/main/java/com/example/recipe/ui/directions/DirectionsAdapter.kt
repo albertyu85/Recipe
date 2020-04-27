@@ -29,8 +29,7 @@ class DirectionsAdapter(val listener: (cart: Cart) -> Unit) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("Directions Adapter", "Binding")
         val item = data[position]
-        holder.name.text = item.name
-        holder.amount.text = "$${item.amount}"
+        holder.name.text = item.original
         holder.bind(listener)
     }
 
@@ -46,9 +45,8 @@ class DirectionsAdapter(val listener: (cart: Cart) -> Unit) : RecyclerView.Adapt
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.item_name
-        val amount = itemView.item_amount
         fun bind(clickListener: (cart: Cart) -> Unit) {
-            itemView.add_button.setOnClickListener { clickListener(Cart(0, name.text.toString(), amount.text.toString())) }
+            itemView.add_button.setOnClickListener { clickListener(Cart(0, name.text.toString(), "")) }
         }
     }
 }

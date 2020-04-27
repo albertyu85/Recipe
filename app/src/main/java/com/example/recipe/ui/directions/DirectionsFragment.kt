@@ -55,9 +55,17 @@ class DirectionsFragment : Fragment() {
         }
 
         viewModel.recipeInfo.observe(this, Observer {
-            Glide.with(view)
-                .load(it.image)
-                .into(binding.recipeImage)
+            if (it.image == "") {
+                Glide.with(view)
+                        .load(R.drawable.beach_scene)
+                        .into(binding.recipeImage)
+            }
+            else {
+                Glide.with(view)
+                        .load(it.image)
+                        .into(binding.recipeImage)
+            }
+
             binding.apply {
                 recipeImage.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE

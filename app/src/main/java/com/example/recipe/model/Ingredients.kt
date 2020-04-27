@@ -5,5 +5,7 @@ data class Ingredients(
     val amount: Double,
     val image: String,
     val name: String,
-    val unit : String
+    val unit : String,
+    val original: String
+
 )
