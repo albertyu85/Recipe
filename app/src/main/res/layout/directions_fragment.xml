@@ -35,22 +35,43 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_ingredients_list"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="200dp"
+                android:layout_height="200dp">
+
+            </ProgressBar>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Ingredients"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large">
+
+            </TextView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_ingredients_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_directions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Directions"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_anchor="@id/recyclerView_ingredients_list"
-            app:layout_anchorGravity="bottom"/>
-
+            app:layout_anchorGravity="bottom" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

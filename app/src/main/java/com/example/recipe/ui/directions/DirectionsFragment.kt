@@ -49,8 +49,9 @@ class DirectionsFragment : Fragment() {
         val adapter = DirectionsAdapter { cart: Cart -> onClick(cart)}
         binding.apply {
             invalidateAll()
-            binding.recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
-            binding.recipeImage.visibility = View.GONE
+            recyclerViewIngredientsList.layoutManager = LinearLayoutManager(context)
+            progressBar.visibility = View.VISIBLE
+            recipeImage.visibility = View.GONE
         }
 
         viewModel.recipeInfo.observe(this, Observer {
@@ -59,7 +60,7 @@ class DirectionsFragment : Fragment() {
                 .into(binding.recipeImage)
             binding.apply {
                 recipeImage.visibility = View.VISIBLE
-//                progressBar.visibility = View.GONE
+                progressBar.visibility = View.GONE
             }
             adapter.data = it.extendedIngredients
             Log.d("Directions Fragment", "${it.extendedIngredients}")
