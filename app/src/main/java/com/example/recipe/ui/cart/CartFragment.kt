@@ -22,6 +22,7 @@ import com.example.recipe.model.Cart
 import com.example.recipe.ui.detail.DetailViewModel
 import com.example.recipe.ui.detail.DetailViewModelFactory
 import com.example.recipe.ui.mealtypes.MealTypesAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.cart_fragment.*
 import kotlinx.android.synthetic.main.list_item_cart.*
 import kotlinx.android.synthetic.main.meal_types_fragment.*
@@ -44,6 +45,7 @@ class CartFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.cart_fragment, container, false)
         val view = binding.root
+        activity?.toolbar?.title = "Shopping List"
         val database = RecipeDatabase.getInstance(this.requireContext())
         viewModel = ViewModelProviders.of(this, CartViewModelFactory(database)).get(CartViewModel::class.java)
         val cartAdapter = CartAdapter{ cart : Cart -> onClick(cart)}

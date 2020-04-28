@@ -39,7 +39,7 @@ class CartAdapter( val listener : (cart : Cart) -> Unit) : RecyclerView.Adapter<
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.list_cart_title
         fun bind(id: Int, name: String, amount: String, listener: (cart: Cart) -> Unit) {
-            itemView.delete_button.setOnClickListener { listener(Cart(id, name, amount)) }
+            itemView.list_cart_title.setOnClickListener { listener(Cart(id, name, amount)) }
         }
     }
 }

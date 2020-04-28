@@ -18,6 +18,7 @@ import com.example.recipe.data.RecipeApi
 import com.example.recipe.data.RecipeDatabase
 import com.example.recipe.data.RecipeRepository
 import com.example.recipe.databinding.DetailFragmentBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.detail_fragment.*
 
 class DetailFragment : Fragment() {
@@ -34,7 +35,9 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val args = DetailFragmentArgs.fromBundle(arguments!!)
+        activity?.toolbar?.title = "${args.detail} Recipes"
         Log.d("DetailFragment", "type: ${args.type} detail: ${args.detail}")
         database = RecipeDatabase.getInstance(this.requireContext())
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)

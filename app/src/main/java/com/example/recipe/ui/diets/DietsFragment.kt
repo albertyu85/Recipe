@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipe.R
 import com.example.recipe.databinding.DietsFragmentBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.diets_fragment.*
 
 
@@ -26,6 +27,7 @@ class DietsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.toolbar?.title = "Diets"
         binding = DataBindingUtil.inflate(inflater, R.layout.diets_fragment, container, false)
         return binding.root
     }

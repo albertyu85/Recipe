@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import com.example.recipe.databinding.CuisinesFragmentBinding
 import com.example.recipe.ui.detail.DetailFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.cuisines_fragment.*
 
 
@@ -28,6 +29,7 @@ class CuisinesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.toolbar?.title = "Cuisines"
         binding = DataBindingUtil.inflate(inflater, R.layout.cuisines_fragment, container, false)
         return binding.root
     }

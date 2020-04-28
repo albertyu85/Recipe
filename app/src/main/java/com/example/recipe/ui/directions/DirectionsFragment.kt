@@ -22,6 +22,7 @@ import com.example.recipe.databinding.DirectionsFragmentBinding
 import com.example.recipe.model.Cart
 import com.example.recipe.model.Ingredients
 import com.example.recipe.model.RecipeInformation
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.directions_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -36,7 +37,7 @@ class DirectionsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        activity?.toolbar?.title = "Directions"
         val database : RecipeDatabase = RecipeDatabase.getInstance(this.context!!)
         val args = DirectionsFragmentArgs.fromBundle(arguments!!)
         binding = DataBindingUtil.inflate(inflater, R.layout.directions_fragment, container, false)

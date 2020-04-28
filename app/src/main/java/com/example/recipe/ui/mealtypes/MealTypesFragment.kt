@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipe.R
 import com.example.recipe.databinding.MealTypesFragmentBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.meal_types_fragment.*
 
 
@@ -27,6 +28,7 @@ class MealTypesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.toolbar?.title = "Meal Types"
         binding = DataBindingUtil.inflate(inflater, R.layout.meal_types_fragment, container, false)
         return binding.root
     }
