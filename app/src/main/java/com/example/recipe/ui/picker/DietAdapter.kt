@@ -1,5 +1,6 @@
 package com.example.recipe.ui.picker
 
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ class DietAdapter(val listener : (diet: String) -> Unit) : RecyclerView.Adapter<
             notifyDataSetChanged()
         }
 
+    val checked = SparseBooleanArray()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DietAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater
@@ -29,13 +32,26 @@ class DietAdapter(val listener : (diet: String) -> Unit) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: DietAdapter.ViewHolder, position: Int) {
         val item = data[position]
         holder.dietName.text = item
-        holder.bind(listener)
+        holder.bind(listener, position)
     }
 
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val dietName = itemView.findViewById<TextView>(R.id.list_diet_title)
-        fun bind(clickListener : (diet: String) -> Unit) {
+        val imageOverlay = itemView.findViewById<ImageView>(R.id.image_view_overlay)
+        fun bind(clickListener : (diet: String) -> Unit, position: Int) {
+            if (!checked.get(position, false))
+                imageOverlay.visibility = View.INVISIBLE
+            else
+                imageOverlay.visibility = View.VISIBLE
             itemView.setOnClickListener {
+                if (!checked.get(position, false)) {
+                    checked.put(position, true)
+                    imageOverlay.visibility = View.VISIBLE
+                }
+                else {
+                    checked.put(position, false)
+                    imageOverlay.visibility = View.INVISIBLE
+                }
                 clickListener(dietName.text.toString())
             }
         }

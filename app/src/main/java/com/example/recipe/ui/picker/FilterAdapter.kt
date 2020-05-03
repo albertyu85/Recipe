@@ -1,5 +1,7 @@
 package com.example.recipe.ui.picker
 
+import android.util.Log
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
+import kotlinx.android.synthetic.main.list_item_meal_types.view.*
 
 class FilterAdapter(val listener : (name: String) -> Unit) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
@@ -15,6 +18,8 @@ class FilterAdapter(val listener : (name: String) -> Unit) : RecyclerView.Adapte
         field = value
         notifyDataSetChanged()
     }
+
+    val checked = android.util.SparseBooleanArray()
 
     override fun getItemCount(): Int {
         return data.size
@@ -30,13 +35,28 @@ class FilterAdapter(val listener : (name: String) -> Unit) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         holder.title.text = item
-        holder.bind(listener)
+        Log.d("Bind", "Binding $item")
+        holder.bind(listener, position)
     }
 
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val title = itemView.findViewById<TextView>(R.id.list_filter_title)
-        fun bind(clickListener: (name: String) -> Unit) {
+        val imageOverlay = itemView.findViewById<ImageView>(R.id.image_view_overlay)
+        fun bind(clickListener: (name: String) -> Unit, position: Int) {
+            if (!checked.get(position, false))
+                imageOverlay.visibility = View.INVISIBLE
+            else
+                imageOverlay.visibility = View.VISIBLE
             itemView.setOnClickListener {
+                if (!checked.get(position, false)) {
+                    checked.put(position, true)
+                    imageOverlay.visibility = View.VISIBLE
+                }
+                else {
+                    checked.put(position, false)
+                    imageOverlay.visibility = View.INVISIBLE
+                }
+
                 clickListener(title.text.toString())
             }
         }

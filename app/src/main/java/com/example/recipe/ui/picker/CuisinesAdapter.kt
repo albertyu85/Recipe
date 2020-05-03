@@ -1,5 +1,6 @@
 package com.example.recipe.ui.picker
 
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ class CuisinesAdapter(val listener: (title : String) -> Unit) : RecyclerView.Ada
             notifyDataSetChanged()
         }
 
+    val checked = SparseBooleanArray()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CuisinesAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater
@@ -29,14 +32,26 @@ class CuisinesAdapter(val listener: (title : String) -> Unit) : RecyclerView.Ada
         val item = data[position]
         holder.cuisineName.text = item
 
-        holder.bind(listener)
+        holder.bind(listener, position)
     }
 
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val cuisineName = itemView.findViewById<TextView>(R.id.list_cuisine_title)
         val imageOverlay: ImageView = itemView.image_view_overlay
-        fun bind(clickListener : (title : String) -> Unit) {
+        fun bind(clickListener : (title : String) -> Unit, position: Int) {
+            if (!checked.get(position, false))
+                imageOverlay.visibility = View.INVISIBLE
+            else
+                imageOverlay.visibility = View.VISIBLE
             itemView.setOnClickListener {
+                if (!checked.get(position, false)) {
+                    checked.put(position, true)
+                    imageOverlay.visibility = View.VISIBLE
+                }
+                else {
+                    checked.put(position, false)
+                    imageOverlay.visibility = View.INVISIBLE
+                }
                 clickListener(cuisineName.text.toString())
             }
         }
