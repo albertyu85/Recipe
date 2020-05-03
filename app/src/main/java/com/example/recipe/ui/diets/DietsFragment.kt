@@ -46,6 +46,6 @@ class DietsFragment : Fragment() {
     }
 
     private fun onClick(recipe: String) {
-        view?.findNavController()?.navigate(DietsFragmentDirections.actionDietsFragmentToDetail("Diet", recipe ))
+        //view?.findNavController()?.navigate(DietsFragmentDirections.actionDietsFragmentToDetail("Diet", recipe ))
     }
 }

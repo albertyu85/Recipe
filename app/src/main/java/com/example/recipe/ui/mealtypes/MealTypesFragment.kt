@@ -46,7 +46,7 @@ class MealTypesFragment : Fragment() {
     }
 
     private fun onClick(recipe: String) {
-        view?.findNavController()?.navigate(MealTypesFragmentDirections.actionMealTypesFragmentToDetail("Meal Type", recipe))
+        //view?.findNavController()?.navigate(MealTypesFragmentDirections.actionMealTypesFragmentToDetail("Meal Type", recipe))
     }
 
 }

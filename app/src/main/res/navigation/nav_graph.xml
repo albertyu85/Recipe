@@ -3,38 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/cuisinesFragment">
+    app:startDestination="@id/pickerFragment">
 
-    <fragment
-        android:id="@+id/cuisinesFragment"
-        android:name="com.example.recipe.ui.cuisines.CuisinesFragment"
-        android:label="cuisines_fragment"
-        tools:layout="@layout/cuisines_fragment" >
-        <action
-            android:id="@+id/action_cuisinesFragment_to_detail"
-            app:destination="@id/detail" />
-        <action
-            android:id="@+id/action_cuisinesFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/dietsFragment"
-        android:name="com.example.recipe.ui.diets.DietsFragment"
-        android:label="diets_fragment"
-        tools:layout="@layout/diets_fragment" >
-        <action
-            android:id="@+id/action_dietsFragment_to_detail"
-            app:destination="@id/detail" />
-    </fragment>
-    <fragment
-        android:id="@+id/mealTypesFragment"
-        android:name="com.example.recipe.ui.mealtypes.MealTypesFragment"
-        android:label="meal_types_fragment"
-        tools:layout="@layout/meal_types_fragment" >
-        <action
-            android:id="@+id/action_mealTypesFragment_to_detail"
-            app:destination="@id/detail" />
-    </fragment>
     <fragment
         android:id="@+id/detail"
         android:name="com.example.recipe.ui.detail.DetailFragment"
@@ -64,4 +34,16 @@
         android:name="com.example.recipe.ui.cart.CartFragment"
         android:label="cart_fragment"
         tools:layout="@layout/cart_fragment" />
+    <fragment
+        android:id="@+id/pickerFragment"
+        android:name="com.example.recipe.ui.picker.PickerFragment"
+        android:label="picker_fragment"
+        tools:layout="@layout/picker_fragment" >
+        <action
+            android:id="@+id/action_pickerFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_pickerFragment_to_detail"
+            app:destination="@id/detail" />
+    </fragment>
 </navigation>

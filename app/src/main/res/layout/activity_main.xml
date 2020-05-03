@@ -29,13 +29,5 @@
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/nav_graph" />
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_nav"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                app:menu="@menu/bottom_menu_item">
-
-            </com.google.android.material.bottomnavigation.BottomNavigationView>
         </LinearLayout>
 </layout>

@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 //        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         val navController : NavController = findNavController(R.id.nav_host_fragment)
-        bottom_nav.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this, navController)
 
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import com.example.recipe.databinding.CuisinesFragmentBinding
@@ -37,7 +38,7 @@ class CuisinesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(CuisinesViewModel::class.java)
         val adapter = CuisinesAdapter {cuisineTitle : String -> onClick(cuisineTitle)}
-        val layoutManager = GridLayoutManager(this.context, 2)
+        val layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         adapter.data = viewModel.data
         binding.apply {
             cuisinesList.adapter = adapter
@@ -49,7 +50,7 @@ class CuisinesFragment : Fragment() {
     }
 
     private fun onClick(title: String) {
-        view?.findNavController()?.navigate(CuisinesFragmentDirections.actionCuisinesFragmentToDetail("Cuisine", title))
+//        view?.findNavController()?.navigate(CuisinesFragmentDirections.actionCuisinesFragmentToDetail("Cuisine", title))
     }
 
 }

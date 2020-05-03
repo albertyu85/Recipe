@@ -20,32 +20,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="cuisinesFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="54" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_cuisinesFragment_to_cartFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_cuisinesFragment_to_detail">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="detail">
                     <value>
                       <LayoutPositions>
@@ -67,39 +41,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="dietsFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="547" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_dietsFragment_to_detail">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="directionsActivity">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="890" />
-                            <option name="y" value="203" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="directionsFragment">
                     <value>
                       <LayoutPositions>
@@ -112,18 +53,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="mealTypesFragment">
+                  <entry key="pickerFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="191" />
+                            <option name="x" value="93" />
+                            <option name="y" value="441" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_mealTypesFragment_to_detail">
+                            <entry key="action_pickerFragment_to_cartFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
