@@ -14,12 +14,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 
 import com.example.recipe.R
-import com.example.recipe.data.RecipeApi
 import com.example.recipe.data.RecipeDatabase
-import com.example.recipe.data.RecipeRepository
 import com.example.recipe.databinding.DetailFragmentBinding
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.detail_fragment.*
 
 class DetailFragment : Fragment() {
 
@@ -37,20 +34,20 @@ class DetailFragment : Fragment() {
     ): View? {
 
         val args = DetailFragmentArgs.fromBundle(arguments!!)
-        activity?.toolbar?.title = "${args.detail} Recipes"
-        Log.d("DetailFragment", "type: ${args.type} detail: ${args.detail}")
+//        activity?.toolbar?.title = "${args.detail} Recipes"
+        Log.d("DetailFragment", "cuisine: ${args.cuisine} diet: ${args.diet}")
         database = RecipeDatabase.getInstance(this.requireContext())
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
-        viewModel = ViewModelProviders.of(this, DetailViewModelFactory(args.type, args.detail, database)).get(DetailViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, DetailViewModelFactory(args.cuisine, args.diet, args.mealType, args.sort, database)).get(DetailViewModel::class.java)
         val adapter = DetailAdapter{recipeID: Int -> clickListener(recipeID)}
         viewModel.response.observe(this, Observer {
             adapter.data = it
             binding.detailList.adapter = adapter
         })
-        binding.swipeContainer.setOnRefreshListener {
-            viewModel.refresh()
-            binding.swipeContainer.isRefreshing = false
-        }
+//        binding.swipeContainer.setOnRefreshListener {
+//            viewModel.refresh()
+//            binding.swipeContainer.isRefreshing = false
+//        }
         return binding.root
     }
 

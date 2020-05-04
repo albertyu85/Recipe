@@ -9,9 +9,9 @@ data class Recipe(
         @PrimaryKey
         val id: Int,
         val image: String = "",
-        val readyInMinutes : Int,
-        val servings: Int,
-        val title: String,
+        val readyInMinutes : Int = 0,
+        val servings: Int = 0,
+        val title: String = "",
         var type: String? = null,
         var detail: String? = null
         )

@@ -4,12 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recipe.data.CartRepository
 import com.example.recipe.data.RecipeDatabase
-import com.example.recipe.data.RecipeRepository
 import com.example.recipe.model.Cart
-import com.example.recipe.model.Ingredients
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class CartViewModel(recipeDatabase: RecipeDatabase) : ViewModel() {
 

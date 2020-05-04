@@ -10,15 +10,21 @@
         android:name="com.example.recipe.ui.detail.DetailFragment"
         android:label="detail_fragment"
         tools:layout="@layout/detail_fragment" >
-        <argument
-            android:name="type"
-            app:argType="string" />
-        <argument
-            android:name="detail"
-            app:argType="string" />
         <action
             android:id="@+id/action_detail_to_directionsFragment"
             app:destination="@id/directionsFragment" />
+        <argument
+            android:name="cuisine"
+            app:argType="string" />
+        <argument
+            android:name="diet"
+            app:argType="string" />
+        <argument
+            android:name="mealType"
+            app:argType="string" />
+        <argument
+            android:name="sort"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/directionsFragment"

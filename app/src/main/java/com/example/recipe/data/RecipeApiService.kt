@@ -1,5 +1,6 @@
 package com.example.recipe.data
 
+import androidx.lifecycle.LiveData
 import com.example.recipe.model.Recipe
 import com.example.recipe.model.RecipeInformation
 import com.example.recipe.model.RecipeList
@@ -54,8 +55,19 @@ interface RecipeApiService {
     @GET("search/")
     suspend fun getMealTypes(@Query("type") type : String) : RecipeList
 
+    //Directions Page
     @GET("{id}/information")
     suspend fun getRecipe(@Path("id") id: Int, @Query("includeNutrition") includeNutrition: Boolean = false) : RecipeInformation
+
+    // Detail Page
+    @GET("complexSearch/")
+    suspend fun getRecipeComplex(
+            @Query("cuisine") cuisine: String,
+            @Query("diet") diet: String,
+            @Query("type")type: String,
+            @Query("sort") sort: String
+    ) : RecipeList
+
 
 }
 
