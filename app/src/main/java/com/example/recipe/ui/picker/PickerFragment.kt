@@ -1,6 +1,7 @@
 package com.example.recipe.ui.picker
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.recipe.ProgressButton
 
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.picker_fragment.*
@@ -58,8 +60,19 @@ class PickerFragment : Fragment() {
         filterAdapter.data = viewModel.filterData
         filter_list.adapter = filterAdapter
 
-        search_button.setOnClickListener {
-            view.findNavController().navigate(PickerFragmentDirections.actionPickerFragmentToDetail(cuisine, diet, mealType, sort))
+//        search_button.setOnClickListener {
+//            view.findNavController().navigate(PickerFragmentDirections.actionPickerFragmentToDetail(cuisine, diet, mealType, sort))
+//        }
+
+        progress_button.setOnClickListener {
+            val progressButton = ProgressButton(context!!, it)
+            progressButton.buttonActivated()
+
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                progressButton.buttonFinished()
+            }, 3000)
+
         }
         super.onViewCreated(view, savedInstanceState)
     }
