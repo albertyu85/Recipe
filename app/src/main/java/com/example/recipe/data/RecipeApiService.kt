@@ -1,6 +1,7 @@
 package com.example.recipe.data
 
 import androidx.lifecycle.LiveData
+import com.example.recipe.model.ComplexRecipeList
 import com.example.recipe.model.Recipe
 import com.example.recipe.model.RecipeInformation
 import com.example.recipe.model.RecipeList
@@ -66,7 +67,7 @@ interface RecipeApiService {
             @Query("diet") diet: String,
             @Query("type")type: String,
             @Query("sort") sort: String
-    ) : RecipeList
+    ) : ComplexRecipeList
 
 
 }

@@ -3,6 +3,7 @@ package com.example.recipe.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.recipe.model.Cart
+import com.example.recipe.model.ComplexRecipe
 import com.example.recipe.model.Recipe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -10,25 +11,19 @@ import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
 
 class RecipeRepository(
-    private val cuisine: String,
-    private val diet: String,
-    private val mealType: String,
-    private val sort: String,
-    private val recipeDao : RecipeDao,
-    private val recipeService : RecipeApi
+        private val cuisine: String,
+        private val diet: String,
+        private val mealType: String,
+        private val sort: String,
+        private val complexRecipeDao: ComplexRecipeDao,
+        private val recipeService: RecipeApi
 ) {
 
     init {
-//        GlobalScope.launch(Dispatchers.IO) {
-//            if (recipeDao.isTypeAndDetailEmpty(type, detail) == 0) {
-//                Log.d("Repository", "Type and Detail empty")
-//                when(type) {
-//                    "Cuisine" -> persistCuisine()
-//                    "Diet" -> persistDiet()
-//                    else -> persistMealType()
-//                }
-//            }
-//        }
+        GlobalScope.launch(Dispatchers.IO) {
+            if (complexRecipeDao.isComplexEmpty(cuisine, diet, mealType, sort) == 0)
+                getComplexRecipe()
+        }
     }
 
 //    suspend fun refresh() {
@@ -50,10 +45,30 @@ class RecipeRepository(
 //
 //    }
 
-//    suspend fun getComplexRecipe() : LiveData<MutableList<Recipe>> {
-//        val recipeList = recipeService.retrofitService.getRecipeComplex(cuisine, diet, mealType, sort)
-//        return recipeList.results
-//    }
+    suspend fun getComplexRecipe() {
+        val list = recipeService.retrofitService.getRecipeComplex(cuisine, diet, mealType, sort)
+        persistData(list.results)
+    }
+
+
+    fun fetchComplexRecipe(): LiveData<MutableList<ComplexRecipe>> {
+        Log.d("Repository", "Database fetch")
+        return complexRecipeDao.getComplex(cuisine, diet, mealType, sort)
+    }
+
+    fun persistData(complexRecipeList: MutableList<ComplexRecipe>) {
+        Log.d("Repository", "Inserting in database")
+        GlobalScope.launch(Dispatchers.IO) {
+            Log.d("Repository", "Inserting in database")
+            for (recipe in complexRecipeList) {
+                recipe.cuisine = cuisine
+                recipe.diet = diet
+                recipe.mealType = mealType
+                recipe.sort = sort
+                complexRecipeDao.insert(recipe)
+            }
+        }
+    }
 //    suspend fun persistCuisine() {
 //        persistData(recipeService.retrofitService.getCuisines(detail).results)
 //    }

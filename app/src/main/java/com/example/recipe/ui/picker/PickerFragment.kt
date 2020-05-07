@@ -2,6 +2,7 @@ package com.example.recipe.ui.picker
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,7 @@ class PickerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("Picker", "Cuisine: $cuisine, Meal Type: $mealType, Diet: $diet, Sort: $sort")
         viewModel = ViewModelProviders.of(this).get(PickerViewModel::class.java)
 
         cuisinesList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -65,12 +67,14 @@ class PickerFragment : Fragment() {
 //        }
 
         progress_button.setOnClickListener {
+            Log.d("Picker", "Cuisine: $cuisine, Meal Type: $mealType, Diet: $diet, Sort: $sort")
             val progressButton = ProgressButton(context!!, it)
             progressButton.buttonActivated()
 
             val handler = Handler()
             handler.postDelayed(Runnable {
                 progressButton.buttonFinished()
+                view.findNavController().navigate(PickerFragmentDirections.actionPickerFragmentToDetail(cuisine, diet, mealType, sort))
             }, 3000)
 
         }
@@ -89,6 +93,7 @@ class PickerFragment : Fragment() {
             "sort" -> if (sort == name) sort = "" else sort = name
         }
         Toast.makeText(context, "$query: $name Selected", Toast.LENGTH_SHORT).show()
+        Log.d("Picker", "Cuisine: $cuisine, Meal Type: $mealType, Diet: $diet, Sort: $sort")
 //        view?.findNavController()?.navigate(PickerFragmentDir)
     }
 

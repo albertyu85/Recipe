@@ -16,6 +16,7 @@ import androidx.navigation.findNavController
 import com.example.recipe.R
 import com.example.recipe.data.RecipeDatabase
 import com.example.recipe.databinding.DetailFragmentBinding
+import com.example.recipe.model.ComplexRecipe
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailFragment : Fragment() {
@@ -33,11 +34,17 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val args = DetailFragmentArgs.fromBundle(arguments!!)
-//        activity?.toolbar?.title = "${args.detail} Recipes"
+        activity?.toolbar?.title = "Recipes"
         Log.d("DetailFragment", "cuisine: ${args.cuisine} diet: ${args.diet}")
         database = RecipeDatabase.getInstance(this.requireContext())
-        binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
         viewModel = ViewModelProviders.of(this, DetailViewModelFactory(args.cuisine, args.diet, args.mealType, args.sort, database)).get(DetailViewModel::class.java)
         val adapter = DetailAdapter{recipeID: Int -> clickListener(recipeID)}
         viewModel.response.observe(this, Observer {
@@ -48,7 +55,7 @@ class DetailFragment : Fragment() {
 //            viewModel.refresh()
 //            binding.swipeContainer.isRefreshing = false
 //        }
-        return binding.root
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun clickListener(recipeID: Int) {

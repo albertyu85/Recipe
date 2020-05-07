@@ -10,12 +10,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipe.R
+import com.example.recipe.model.ComplexRecipe
 import com.example.recipe.model.Recipe
 import com.example.recipe.model.RecipeList
 
 class DetailAdapter(val listener: (recipeID: Int) -> Unit) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
 
-    var data = mutableListOf<Recipe>()
+    var data = mutableListOf<ComplexRecipe>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -34,8 +35,6 @@ class DetailAdapter(val listener: (recipeID: Int) -> Unit) : RecyclerView.Adapte
         holder.progressBar.visibility = View.VISIBLE
         holder.image.visibility = View.INVISIBLE
         holder.title.text = item.title
-        holder.servings.text = "Servings: ${item.servings}"
-        holder.minutes.text = "Ready in: ${item.readyInMinutes} minutes"
         holder.id = item.id
         Glide.with(holder.image.context)
                 .load("https://spoonacular.com/recipeImages/${item.id}-312x150.jpg")
@@ -49,15 +48,13 @@ class DetailAdapter(val listener: (recipeID: Int) -> Unit) : RecyclerView.Adapte
         data.clear()
     }
 
-    fun addAll(list: List<Recipe>) {
+    fun addAll(list: List<ComplexRecipe>) {
         data.addAll(list)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var id = 0
         val title = itemView.findViewById<TextView>(R.id.list_detail_title)
-        val servings = itemView.findViewById<TextView>(R.id.servings_textView)
-        val minutes = itemView.findViewById<TextView>(R.id.minutes_textView)
         val image = itemView.findViewById<ImageView>(R.id.imageView)
         val progressBar = itemView.findViewById<ProgressBar>(R.id.progressBar2)
 
