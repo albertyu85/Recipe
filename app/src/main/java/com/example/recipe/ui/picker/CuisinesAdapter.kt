@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.list_item_meal_types.view.*
 
-class CuisinesAdapter(val listener: (title : String) -> Unit) : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
+class CuisinesAdapter() : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
     var data = listOf<String>()
         set(value) {
             field = value
@@ -32,13 +32,13 @@ class CuisinesAdapter(val listener: (title : String) -> Unit) : RecyclerView.Ada
         val item = data[position]
         holder.cuisineName.text = item
 
-        holder.bind(listener, position)
+        holder.bind(position)
     }
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val cuisineName = itemView.findViewById<TextView>(R.id.list_cuisine_title)
         val imageOverlay: ImageView = itemView.image_view_overlay
-        fun bind(clickListener : (title : String) -> Unit, position: Int) {
+        fun bind(position: Int) {
             if (!checked.get(position, false))
                 imageOverlay.visibility = View.INVISIBLE
             else
@@ -52,7 +52,6 @@ class CuisinesAdapter(val listener: (title : String) -> Unit) : RecyclerView.Ada
                     checked.put(position, false)
                     imageOverlay.visibility = View.INVISIBLE
                 }
-                clickListener(cuisineName.text.toString())
             }
         }
 

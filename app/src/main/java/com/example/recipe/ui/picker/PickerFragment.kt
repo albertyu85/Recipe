@@ -3,6 +3,7 @@ package com.example.recipe.ui.picker
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,22 +29,16 @@ class PickerFragment : Fragment() {
 
     private lateinit var viewModel: PickerViewModel
 
-    private var cuisine : String = ""
-    private var mealType: String = ""
-    private var diet = ""
-    private var sort = ""
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.picker_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("Picker", "Cuisine: $cuisine, Meal Type: $mealType, Diet: $diet, Sort: $sort")
         viewModel = ViewModelProviders.of(this).get(PickerViewModel::class.java)
 
         cuisinesList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val cuisinesAdapter =  CuisinesAdapter{ name: String -> onClick("cuisine", name) }
+        val cuisinesAdapter =  CuisinesAdapter()
         cuisinesAdapter.data = viewModel.cuisinesData
         cuisinesList.adapter = cuisinesAdapter
 
@@ -67,6 +62,10 @@ class PickerFragment : Fragment() {
 //        }
 
         progress_button.setOnClickListener {
+            var cuisine = checkCuisines(cuisinesAdapter.checked)
+            var mealType = checkMealTypes((mealTypesAdapter.checked))
+            var diet = checkDiet(dietAdapter.checked)
+            var sort = checkSort(filterAdapter.checked)
             Log.d("Picker", "Cuisine: $cuisine, Meal Type: $mealType, Diet: $diet, Sort: $sort")
             val progressButton = ProgressButton(context!!, it)
             progressButton.buttonActivated()
@@ -82,19 +81,39 @@ class PickerFragment : Fragment() {
     }
 
     private fun onClick(query: String, name: String) {
-        when (query) {
-            "cuisine" -> if (cuisine == name) {
-                cuisine = ""
-            } else {
-                cuisine = name
-            }
-            "diet" -> if (diet == name) diet = "" else diet = name
-            "meal type" -> if (mealType == name) mealType = "" else mealType = name
-            "sort" -> if (sort == name) sort = "" else sort = name
+//        Toast.makeText(context, "$query: $name Selected", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun checkCuisines(checked: SparseBooleanArray) : String {
+        for (i in viewModel.cuisinesData.indices) {
+            if (checked.get(i, false))
+                return viewModel.cuisinesData[i]
         }
-        Toast.makeText(context, "$query: $name Selected", Toast.LENGTH_SHORT).show()
-        Log.d("Picker", "Cuisine: $cuisine, Meal Type: $mealType, Diet: $diet, Sort: $sort")
-//        view?.findNavController()?.navigate(PickerFragmentDir)
+        return ""
+    }
+
+    private fun checkDiet(checked: SparseBooleanArray) : String {
+        for (i in viewModel.dietsData.indices) {
+            if (checked.get(i, false))
+                return viewModel.dietsData[i]
+        }
+        return ""
+    }
+
+    private fun checkMealTypes(checked: SparseBooleanArray) : String {
+        for (i in viewModel.mealTypeData.indices) {
+            if (checked.get(i, false))
+                return viewModel.mealTypeData[i]
+        }
+        return ""
+    }
+
+    private fun checkSort(checked: SparseBooleanArray) : String {
+        for (i in viewModel.filterData.indices) {
+            if (checked.get(i))
+                return viewModel.filterData[i]
+        }
+        return ""
     }
 
 }
