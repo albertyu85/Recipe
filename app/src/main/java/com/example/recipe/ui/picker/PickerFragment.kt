@@ -7,16 +7,11 @@ import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.recipe.ProgressButton
+import com.example.recipe.ui.customviews.ProgressButton
 
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.picker_fragment.*
@@ -43,17 +38,17 @@ class PickerFragment : Fragment() {
         cuisinesList.adapter = cuisinesAdapter
 
         dietList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val dietAdapter = DietAdapter{ name: String -> onClick("diet", name)}
+        val dietAdapter = DietAdapter()
         dietAdapter.data = viewModel.dietsData
         dietList.adapter = dietAdapter
 
         meal_types_list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val mealTypesAdapter = MealTypesAdapter{ name: String -> onClick("meal type", name)}
+        val mealTypesAdapter = MealTypesAdapter()
         mealTypesAdapter.data = viewModel.mealTypeData
         meal_types_list.adapter = mealTypesAdapter
 
         filter_list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val filterAdapter = FilterAdapter{ name: String -> onClick("sort", name) }
+        val filterAdapter = FilterAdapter()
         filterAdapter.data = viewModel.filterData
         filter_list.adapter = filterAdapter
 
@@ -74,7 +69,7 @@ class PickerFragment : Fragment() {
             handler.postDelayed(Runnable {
                 progressButton.buttonFinished()
                 view.findNavController().navigate(PickerFragmentDirections.actionPickerFragmentToDetail(cuisine, diet, mealType, sort))
-            }, 3000)
+            }, 1000)
 
         }
         super.onViewCreated(view, savedInstanceState)

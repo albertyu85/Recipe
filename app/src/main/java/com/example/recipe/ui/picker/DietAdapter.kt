@@ -11,7 +11,7 @@ import com.example.recipe.R
 import com.example.recipe.ui.cuisines.CuisinesAdapter
 
 
-class DietAdapter(val listener : (diet: String) -> Unit) : RecyclerView.Adapter<DietAdapter.ViewHolder>() {
+class DietAdapter : RecyclerView.Adapter<DietAdapter.ViewHolder>() {
     var data = listOf<String>()
         set(value) {
             field = value
@@ -32,13 +32,13 @@ class DietAdapter(val listener : (diet: String) -> Unit) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: DietAdapter.ViewHolder, position: Int) {
         val item = data[position]
         holder.dietName.text = item
-        holder.bind(listener, position)
+        holder.bind(position)
     }
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val dietName = itemView.findViewById<TextView>(R.id.list_diet_title)
         val imageOverlay = itemView.findViewById<ImageView>(R.id.image_view_overlay)
-        fun bind(clickListener : (diet: String) -> Unit, position: Int) {
+        fun bind(position: Int) {
             if (!checked.get(position, false))
                 imageOverlay.visibility = View.INVISIBLE
             else
@@ -52,7 +52,6 @@ class DietAdapter(val listener : (diet: String) -> Unit) : RecyclerView.Adapter<
                     checked.put(position, false)
                     imageOverlay.visibility = View.INVISIBLE
                 }
-                clickListener(dietName.text.toString())
             }
         }
     }

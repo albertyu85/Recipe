@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.list_item_meal_types.view.*
 
-class CuisinesAdapter() : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
+class CuisinesAdapter : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
     var data = listOf<String>()
         set(value) {
             field = value

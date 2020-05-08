@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.list_item_meal_types.view.*
 
-class FilterAdapter(val listener : (name: String) -> Unit) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
+class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     var data = listOf<String>()
     set(value) {
@@ -36,13 +36,13 @@ class FilterAdapter(val listener : (name: String) -> Unit) : RecyclerView.Adapte
         val item = data[position]
         holder.title.text = item
         Log.d("Bind", "Binding $item")
-        holder.bind(listener, position)
+        holder.bind(position)
     }
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val title = itemView.findViewById<TextView>(R.id.list_filter_title)
         val imageOverlay = itemView.findViewById<ImageView>(R.id.image_view_overlay)
-        fun bind(clickListener: (name: String) -> Unit, position: Int) {
+        fun bind(position: Int) {
             if (!checked.get(position, false))
                 imageOverlay.visibility = View.INVISIBLE
             else
@@ -56,8 +56,6 @@ class FilterAdapter(val listener : (name: String) -> Unit) : RecyclerView.Adapte
                     checked.put(position, false)
                     imageOverlay.visibility = View.INVISIBLE
                 }
-
-                clickListener(title.text.toString())
             }
         }
     }

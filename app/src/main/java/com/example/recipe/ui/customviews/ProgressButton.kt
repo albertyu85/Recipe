@@ -1,13 +1,13 @@
-package com.example.recipe
+package com.example.recipe.ui.customviews
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Color
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.recipe.R
 
 class ProgressButton(context: Context, view: View) {
 
