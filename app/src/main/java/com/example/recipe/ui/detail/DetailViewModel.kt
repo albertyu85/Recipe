@@ -2,6 +2,7 @@ package com.example.recipe.ui.detail
 
 import android.app.Application
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -22,6 +23,9 @@ import kotlin.coroutines.CoroutineContext
 
 class DetailViewModel(val cuisine: String, val diet : String, val mealType : String, val sort : String, recipeDatabase: RecipeDatabase) : ViewModel() {
     private val repo = RecipeRepository(cuisine, diet, mealType, sort, recipeDatabase.complexRecipeDao(), RecipeApi)
+//    private val _response = MutableLiveData<MutableList<ComplexRecipe>>()
+//    val response : LiveData<MutableList<ComplexRecipe>>
+//        get() = _response
     val response = repo.fetchComplexRecipe()
 
 //    fun refresh() {
@@ -29,5 +33,6 @@ class DetailViewModel(val cuisine: String, val diet : String, val mealType : Str
 //            repo.refresh()
 //        }
 //    }
+
 
 }

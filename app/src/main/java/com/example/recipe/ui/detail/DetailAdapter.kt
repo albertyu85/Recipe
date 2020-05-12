@@ -32,14 +32,14 @@ class DetailAdapter(val listener: (recipeID: Int) -> Unit) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.progressBar.visibility = View.VISIBLE
+//        holder.progressBar.visibility = View.VISIBLE
         holder.image.visibility = View.INVISIBLE
         holder.title.text = item.title
         holder.id = item.id
         Glide.with(holder.image.context)
                 .load("https://spoonacular.com/recipeImages/${item.id}-312x150.jpg")
                 .into(holder.image)
-        holder.progressBar.visibility = View.INVISIBLE
+//        holder.progressBar.visibility = View.INVISIBLE
         holder.image.visibility = View.VISIBLE
         holder.bind(listener)
     }
@@ -56,7 +56,7 @@ class DetailAdapter(val listener: (recipeID: Int) -> Unit) : RecyclerView.Adapte
         var id = 0
         val title = itemView.findViewById<TextView>(R.id.list_detail_title)
         val image = itemView.findViewById<ImageView>(R.id.imageView)
-        val progressBar = itemView.findViewById<ProgressBar>(R.id.progressBar2)
+//        val progressBar = itemView.findViewById<ProgressBar>(R.id.progressBar2)
 
         fun bind(listener: (recipeID: Int) -> Unit) {
             itemView.setOnClickListener {

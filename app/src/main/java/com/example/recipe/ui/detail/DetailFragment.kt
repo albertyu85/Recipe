@@ -11,12 +11,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.findNavController
 
 import com.example.recipe.R
 import com.example.recipe.data.RecipeDatabase
 import com.example.recipe.databinding.DetailFragmentBinding
 import com.example.recipe.model.ComplexRecipe
+import com.example.recipe.ui.MainActivity
+import com.example.recipe.ui.customviews.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailFragment : Fragment() {
@@ -41,21 +44,26 @@ class DetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val args = DetailFragmentArgs.fromBundle(arguments!!)
         activity?.toolbar?.title = "Recipes"
         Log.d("DetailFragment", "cuisine: ${args.cuisine} diet: ${args.diet}")
         database = RecipeDatabase.getInstance(this.requireContext())
         viewModel = ViewModelProviders.of(this, DetailViewModelFactory(args.cuisine, args.diet, args.mealType, args.sort, database)).get(DetailViewModel::class.java)
         val adapter = DetailAdapter{recipeID: Int -> clickListener(recipeID)}
+        val progressVisibility = viewModel.response.distinctUntilChanged()
         viewModel.response.observe(this, Observer {
+            Log.d("Detail", "List Updated")
             adapter.data = it
             binding.detailList.adapter = adapter
         })
+
 //        binding.swipeContainer.setOnRefreshListener {
 //            viewModel.refresh()
 //            binding.swipeContainer.isRefreshing = false
 //        }
-        super.onViewCreated(view, savedInstanceState)
+
+
     }
 
     private fun clickListener(recipeID: Int) {
