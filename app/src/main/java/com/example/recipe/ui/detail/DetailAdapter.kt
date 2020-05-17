@@ -1,18 +1,14 @@
 package com.example.recipe.ui.detail
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipe.R
 import com.example.recipe.model.ComplexRecipe
-import com.example.recipe.model.Recipe
-import com.example.recipe.model.RecipeList
 
 class DetailAdapter(val listener: (recipeID: Int) -> Unit) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
 

@@ -15,19 +15,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.recipe.Injection
 
 import com.example.recipe.R
-import com.example.recipe.data.RecipeDatabase
+import com.example.recipe.db.RecipeDatabase
 import com.example.recipe.databinding.DirectionsFragmentBinding
 import com.example.recipe.model.Cart
-import com.example.recipe.model.Ingredients
 import com.example.recipe.model.RecipeInformation
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.directions_fragment.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import com.example.recipe.data.CartDao as CartDao
 
 class DirectionsFragment : Fragment() {
     private lateinit var viewModel: DirectionsViewModel
@@ -38,13 +33,12 @@ class DirectionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.toolbar?.title = "Directions"
-        val database : RecipeDatabase = RecipeDatabase.getInstance(this.context!!)
         val args = DirectionsFragmentArgs.fromBundle(arguments!!)
         binding = DataBindingUtil.inflate(inflater, R.layout.directions_fragment, container, false)
         val view = binding.root
         viewModel = ViewModelProviders.of(
             this,
-            DirectionsViewModelFactory(args.recipeID, database)
+            Injection.provideDirectionsViewModelFactory(context!!, args.recipeID)
         ).get(DirectionsViewModel::class.java)
         viewModel.getRecipeInformation()
         val adapter = DirectionsAdapter { cart: Cart -> onClick(cart)}

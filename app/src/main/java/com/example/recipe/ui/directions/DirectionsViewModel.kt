@@ -3,20 +3,18 @@ package com.example.recipe.ui.directions
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recipe.data.CartRepository
-import com.example.recipe.data.RecipeApi
-import com.example.recipe.data.RecipeDatabase
+import com.example.recipe.api.RecipeApi
+import com.example.recipe.db.RecipeDatabase
 import com.example.recipe.model.Cart
 import com.example.recipe.model.RecipeInformation
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class DirectionsViewModel(val recipeId: Int, database: RecipeDatabase) : ViewModel() {
+class DirectionsViewModel(val recipeId: Int, private val cartRepository: CartRepository) : ViewModel() {
     private val job = Job()
     private val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Default
     private val scope = CoroutineScope(coroutineContext)
-
-    val repo = CartRepository(database.cartDao())
 
     val recipeInfo = MutableLiveData<RecipeInformation>()
     fun getRecipeInformation() {
@@ -27,6 +25,6 @@ class DirectionsViewModel(val recipeId: Int, database: RecipeDatabase) : ViewMod
     }
 
     fun insertCart(cart: Cart) {
-        repo.insertCart(cart)
+        cartRepository.insertCart(cart)
     }
 }

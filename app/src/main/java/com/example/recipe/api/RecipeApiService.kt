@@ -1,18 +1,12 @@
-package com.example.recipe.data
+package com.example.recipe.api
 
-import androidx.lifecycle.LiveData
-import com.example.recipe.model.ComplexRecipeList
-import com.example.recipe.model.Recipe
 import com.example.recipe.model.RecipeInformation
-import com.example.recipe.model.RecipeList
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

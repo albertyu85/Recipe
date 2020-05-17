@@ -1,28 +1,26 @@
-package com.example.recipe.data
+package com.example.recipe.db
 
 import androidx.lifecycle.LiveData
-import com.example.recipe.db.CartDao
-import com.example.recipe.db.CartLocalCache
 import com.example.recipe.model.Cart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class CartRepository(private val cartLocalCache: CartLocalCache) {
+class CartLocalCache(private val cartDao: CartDao) {
 
-    fun getCart() : LiveData<List<Cart>>{
-        return cartLocalCache.getCart()
+    fun getCart() : LiveData<List<Cart>> {
+        return cartDao.getCart()
     }
 
     fun deleteItem(cart: Cart) {
         GlobalScope.launch(Dispatchers.IO) {
-            cartLocalCache.deleteItem(cart)
+            cartDao.deleteItem(cart)
         }
     }
 
     fun insertCart(cart: Cart) {
         GlobalScope.launch(Dispatchers.IO) {
-            cartLocalCache.insertCart(cart)
+            cartDao.insertCart(cart)
         }
     }
 }
