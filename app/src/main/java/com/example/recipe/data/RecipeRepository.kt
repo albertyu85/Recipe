@@ -22,11 +22,12 @@ class RecipeRepository(
 
     init {
         GlobalScope.launch(Dispatchers.IO) {
-            if (recipeLocalCache.isComplexEmpty(cuisine, diet, mealType, sort))
+            if (recipeLocalCache.isComplexEmpty(cuisine, diet, mealType, sort) == 0) {
+                Log.d("Repository", "Database Empty")
                 fetchComplexRecipe()
+            }
         }
     }
-
 //    suspend fun refresh() {
 //        when(type) {
 //            "Cuisine" -> persistCuisine()
@@ -45,8 +46,8 @@ class RecipeRepository(
 //        persistData(recipeList)
 //
 //    }
-
     private suspend fun fetchComplexRecipe() {
+        Log.d("Repository", "API Fetch")
         val list = recipeService.retrofitService.getRecipeComplex(cuisine, diet, mealType, sort)
         insertComplex(list.results)
     }

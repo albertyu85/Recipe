@@ -55,7 +55,7 @@ class DetailFragment : Fragment() {
         val progressVisibility = viewModel.response.distinctUntilChanged()
         viewModel.response.observe(this, Observer {
             Log.d("Detail", "List Updated")
-            adapter.data = it
+            adapter.submitList(it)
             binding.detailList.adapter = adapter
         })
 

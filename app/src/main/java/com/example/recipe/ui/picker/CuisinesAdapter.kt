@@ -6,16 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.list_item_meal_types.view.*
 
-class CuisinesAdapter : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
-    var data = listOf<String>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class CuisinesAdapter : ListAdapter<String, CuisinesAdapter.ViewHolder>(TypeDiffCallback()) {
 
     val checked = SparseBooleanArray()
 
@@ -26,10 +22,9 @@ class CuisinesAdapter : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
         return ViewHolder(view)
     }
 
-    override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: CuisinesAdapter.ViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.cuisineName.text = item
 
         holder.bind(position)
@@ -56,5 +51,6 @@ class CuisinesAdapter : RecyclerView.Adapter<CuisinesAdapter.ViewHolder>() {
         }
 
     }
+
 
 }

@@ -12,7 +12,7 @@ class RecipeLocalCache(private val complexRecipeDao: ComplexRecipeDao,
     fun isComplexEmpty(cuisine: String,
                        diet: String,
                        mealType: String,
-                       sort: String) = complexRecipeDao.isComplexEmpty(cuisine, diet, mealType, sort) == 0
+                       sort: String) = complexRecipeDao.isComplexEmpty(cuisine, diet, mealType, sort)
 
     fun insertComplexRecipeList(complexRecipeList: MutableList<ComplexRecipe>,
                                 cuisine: String,

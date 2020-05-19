@@ -5,17 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.list_item_meal_types.view.*
 
-class MealTypesAdapter : RecyclerView.Adapter<MealTypesAdapter.ViewHolder>() {
-
-    var data = listOf<String>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class MealTypesAdapter : ListAdapter<String, MealTypesAdapter.ViewHolder>(TypeDiffCallback()) {
 
     val checked = SparseBooleanArray()
 
@@ -25,12 +20,8 @@ class MealTypesAdapter : RecyclerView.Adapter<MealTypesAdapter.ViewHolder>() {
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.title.text = item
         holder.bind(position)
     }

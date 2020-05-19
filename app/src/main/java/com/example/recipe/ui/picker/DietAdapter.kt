@@ -6,17 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import com.example.recipe.ui.cuisines.CuisinesAdapter
 
 
-class DietAdapter : RecyclerView.Adapter<DietAdapter.ViewHolder>() {
-    var data = listOf<String>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class DietAdapter : ListAdapter<String, DietAdapter.ViewHolder>(TypeDiffCallback()) {
 
     val checked = SparseBooleanArray()
 
@@ -27,10 +23,8 @@ class DietAdapter : RecyclerView.Adapter<DietAdapter.ViewHolder>() {
         return ViewHolder(view)
     }
 
-    override fun getItemCount() = data.size
-
     override fun onBindViewHolder(holder: DietAdapter.ViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.dietName.text = item
         holder.bind(position)
     }
