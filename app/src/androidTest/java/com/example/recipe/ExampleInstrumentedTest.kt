@@ -3,8 +3,8 @@ package com.example.recipe
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.recipe.data.RecipeDao
-import com.example.recipe.data.RecipeDatabase
+import com.example.recipe.db.RecipeDao
+import com.example.recipe.db.RecipeDatabase
 import com.example.recipe.model.Recipe
 import org.junit.After
 

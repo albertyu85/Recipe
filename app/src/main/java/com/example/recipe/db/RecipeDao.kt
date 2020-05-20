@@ -1,4 +1,4 @@
-package com.example.recipe.data
+package com.example.recipe.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

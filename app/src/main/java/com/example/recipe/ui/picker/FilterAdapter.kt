@@ -7,23 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.list_item_meal_types.view.*
 
-class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
-
-    var data = listOf<String>()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+class FilterAdapter : ListAdapter<String, FilterAdapter.ViewHolder>(TypeDiffCallback()) {
 
     val checked = android.util.SparseBooleanArray()
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -33,7 +24,7 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.title.text = item
         Log.d("Bind", "Binding $item")
         holder.bind(position)

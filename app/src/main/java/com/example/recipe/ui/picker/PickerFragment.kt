@@ -34,22 +34,22 @@ class PickerFragment : Fragment() {
 
         cuisinesList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val cuisinesAdapter =  CuisinesAdapter()
-        cuisinesAdapter.data = viewModel.cuisinesData
+        cuisinesAdapter.submitList(viewModel.cuisinesData)
         cuisinesList.adapter = cuisinesAdapter
 
         dietList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val dietAdapter = DietAdapter()
-        dietAdapter.data = viewModel.dietsData
+        dietAdapter.submitList(viewModel.dietsData)
         dietList.adapter = dietAdapter
 
         meal_types_list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val mealTypesAdapter = MealTypesAdapter()
-        mealTypesAdapter.data = viewModel.mealTypeData
+        mealTypesAdapter.submitList(viewModel.mealTypeData)
         meal_types_list.adapter = mealTypesAdapter
 
         filter_list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val filterAdapter = FilterAdapter()
-        filterAdapter.data = viewModel.filterData
+        filterAdapter.submitList(viewModel.filterData)
         filter_list.adapter = filterAdapter
 
 //        search_button.setOnClickListener {

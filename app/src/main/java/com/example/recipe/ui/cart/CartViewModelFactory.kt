@@ -2,11 +2,11 @@ package com.example.recipe.ui.cart
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.recipe.data.RecipeDatabase
-import com.example.recipe.ui.directions.DirectionsViewModel
+import com.example.recipe.data.CartRepository
+import com.example.recipe.db.RecipeDatabase
 
-class CartViewModelFactory(private val recipeDatabase: RecipeDatabase) : ViewModelProvider.NewInstanceFactory() {
+class CartViewModelFactory(private val cartRepository: CartRepository) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return CartViewModel(recipeDatabase) as T
+        return CartViewModel(cartRepository) as T
     }
 }

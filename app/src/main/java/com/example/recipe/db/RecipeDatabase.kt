@@ -1,4 +1,4 @@
-package com.example.recipe.data
+package com.example.recipe.db
 
 import android.content.Context
 import androidx.room.Database
@@ -20,7 +20,8 @@ abstract class RecipeDatabase : RoomDatabase() {
 
         fun getInstance(context: Context) : RecipeDatabase =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context).also { INSTANCE = it}
+                INSTANCE
+                        ?: buildDatabase(context).also { INSTANCE = it}
             }
 
         private fun buildDatabase(context: Context) =
