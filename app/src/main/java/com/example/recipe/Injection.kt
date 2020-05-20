@@ -26,9 +26,10 @@ object Injection {
         return CartLocalCache(database.cartDao())
     }
 
-    private fun provideRecipeRepository(context: Context, cuisine: String, diet: String, mealType: String, sort: String) : RecipeRepository {
+    private fun provideRecipeRepository(context: Context, id: Int, cuisine: String, diet: String, mealType: String, sort: String) : RecipeRepository {
         val repo = RecipeRepository(provideRecipeCache(context), RecipeApi)
         repo.apply {
+            this.id = id
             this.cuisine = cuisine
             this.diet = diet
             this.mealType = mealType
@@ -44,12 +45,12 @@ object Injection {
     fun provideCartViewModelFactory(context: Context) : ViewModelProvider.Factory {
         return CartViewModelFactory(provideCartRepository(context))
     }
-    fun provideDetailViewModelFactory(context: Context, cuisine: String, diet: String, mealType: String, sort: String) : ViewModelProvider.Factory {
-        return DetailViewModelFactory(provideRecipeRepository(context, cuisine, diet, mealType, sort))
+    fun provideDetailViewModelFactory(context: Context, id: Int, cuisine: String, diet: String, mealType: String, sort: String) : ViewModelProvider.Factory {
+        return DetailViewModelFactory(provideRecipeRepository(context, 0, cuisine, diet, mealType, sort))
     }
 
     fun provideDirectionsViewModelFactory(context: Context, id: Int) : ViewModelProvider.Factory {
-        return DirectionsViewModelFactory(id, provideCartRepository(context))
+        return DirectionsViewModelFactory(id, provideCartRepository(context), provideRecipeRepository(context, id, "", "", "", ""))
     }
 
 

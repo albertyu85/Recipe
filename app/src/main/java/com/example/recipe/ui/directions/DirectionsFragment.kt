@@ -49,7 +49,7 @@ class DirectionsFragment : Fragment() {
             recipeImage.visibility = View.GONE
         }
 
-        viewModel.recipeInfo.observe(this, Observer {
+        viewModel.response.observe(this, Observer {
             if (it.image == "") {
                 Glide.with(view)
                         .load(R.drawable.beach_scene)
@@ -65,7 +65,7 @@ class DirectionsFragment : Fragment() {
                 recipeImage.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
             }
-            adapter.data = it.extendedIngredients
+            adapter.submitList(it.extendedIngredients)
             Log.d("Directions Fragment", "${it.extendedIngredients}")
             binding.recyclerViewIngredientsList.adapter = adapter
         })
@@ -73,12 +73,12 @@ class DirectionsFragment : Fragment() {
 
         val buttonDirections = view.findViewById<Button>(R.id.button_directions)
         buttonDirections.setOnClickListener {
-            openDirections(viewModel.recipeInfo.value)
+            openDirections(viewModel.response.value)
         }
         return view
     }
 
-    fun openDirections(recipeInformation: RecipeInformation?) {
+    private fun openDirections(recipeInformation: RecipeInformation?) {
         val openURL = Intent(android.content.Intent.ACTION_VIEW)
         openURL.data = Uri.parse(recipeInformation?.sourceUrl)
         startActivity(openURL)

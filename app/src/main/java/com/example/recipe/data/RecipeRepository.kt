@@ -6,6 +6,7 @@ import com.example.recipe.api.RecipeApi
 import com.example.recipe.db.ComplexRecipeDao
 import com.example.recipe.db.RecipeLocalCache
 import com.example.recipe.model.ComplexRecipe
+import com.example.recipe.model.RecipeInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,6 +16,7 @@ class RecipeRepository(
         private val recipeLocalCache: RecipeLocalCache,
         private val recipeService: RecipeApi
 ) {
+    var id = 0
     var cuisine = ""
     var diet = ""
     var mealType = ""
@@ -46,6 +48,10 @@ class RecipeRepository(
 //        persistData(recipeList)
 //
 //    }
+
+    suspend fun getRecipeByID(id: Int) : RecipeInformation {
+        return recipeService.retrofitService.getRecipe(id)
+    }
     private suspend fun fetchComplexRecipe() {
         Log.d("Repository", "API Fetch")
         val list = recipeService.retrofitService.getRecipeComplex(cuisine, diet, mealType, sort)

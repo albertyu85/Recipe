@@ -44,7 +44,7 @@ class DetailFragment : Fragment() {
         activity?.toolbar?.title = "Recipes"
         Log.d("DetailFragment", "cuisine: ${args.cuisine} diet: ${args.diet}")
         viewModel = ViewModelProviders.of(this,
-                Injection.provideDetailViewModelFactory(context!!,
+                Injection.provideDetailViewModelFactory(context!!, 0,
                 args.cuisine,
                 args.diet,
                 args.mealType,
