@@ -11,11 +11,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.findNavController
+import androidx.paging.PagedList
 import com.example.recipe.Injection
 
 import com.example.recipe.R
 import com.example.recipe.db.RecipeDatabase
 import com.example.recipe.databinding.DetailFragmentBinding
+import com.example.recipe.model.ComplexRecipe
+import com.example.recipe.model.ComplexRecipeListResult
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailFragment : Fragment() {
@@ -53,7 +56,7 @@ class DetailFragment : Fragment() {
 
         val adapter = DetailAdapter{recipeID: Int -> clickListener(recipeID)}
         val progressVisibility = viewModel.response.distinctUntilChanged()
-        viewModel.response.observe(this, Observer {
+        viewModel.response.observe(this, Observer<PagedList<ComplexRecipe>> {
             Log.d("Detail", "List Updated")
             adapter.submitList(it)
             binding.detailList.adapter = adapter

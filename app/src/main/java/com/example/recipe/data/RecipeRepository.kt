@@ -2,10 +2,13 @@ package com.example.recipe.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.recipe.api.RecipeApi
 import com.example.recipe.db.ComplexRecipeDao
 import com.example.recipe.db.RecipeLocalCache
 import com.example.recipe.model.ComplexRecipe
+import com.example.recipe.model.ComplexRecipeListResult
 import com.example.recipe.model.RecipeInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -59,9 +62,13 @@ class RecipeRepository(
     }
 
 
-    fun getComplexRecipe(): LiveData<MutableList<ComplexRecipe>> {
+    fun getComplexRecipe(): ComplexRecipeListResult {
         Log.d("Repository", "Database fetch")
-        return recipeLocalCache.getComplexRecipe(cuisine, diet, mealType, sort)
+
+        val dataSourceFactory = recipeLocalCache.getComplexRecipe(cuisine, diet, mealType, sort)
+        val data = LivePagedListBuilder(dataSourceFactory, 20)
+            .build()
+        return ComplexRecipeListResult(data)
     }
 
     private fun insertComplex(complexRecipeList: MutableList<ComplexRecipe>) {

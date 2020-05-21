@@ -61,7 +61,7 @@ interface RecipeApiService {
             @Query("diet") diet: String,
             @Query("type")type: String,
             @Query("sort") sort: String
-    ) : ComplexRecipeList
+    ) : ComplexRecipeListResponse
 
 
 }
