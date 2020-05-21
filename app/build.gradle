@@ -101,4 +101,8 @@ dependencies {
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
+    def paging_version = "2.1.2"
+
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
 }

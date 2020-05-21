@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.recipe.R
 import com.example.recipe.model.ComplexRecipe
 
-class DetailAdapter(val listener: (recipeID: Int) -> Unit) : ListAdapter<ComplexRecipe, DetailAdapter.ViewHolder>(ComplexRecipeDiffCallback()) {
+class DetailAdapter(val listener: (recipeID: Int) -> Unit) : PagedListAdapter<ComplexRecipe, DetailAdapter.ViewHolder>(ComplexRecipeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -24,7 +25,7 @@ class DetailAdapter(val listener: (recipeID: Int) -> Unit) : ListAdapter<Complex
         val item = getItem(position)
 //        holder.progressBar.visibility = View.VISIBLE
         holder.image.visibility = View.INVISIBLE
-        holder.title.text = item.title
+        holder.title.text = item!!.title
         holder.id = item.id
         Glide.with(holder.image.context)
                 .load("https://spoonacular.com/recipeImages/${item.id}-312x150.jpg")

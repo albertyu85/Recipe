@@ -66,7 +66,7 @@ class RecipeRepository(
         Log.d("Repository", "Database fetch")
 
         val dataSourceFactory = recipeLocalCache.getComplexRecipe(cuisine, diet, mealType, sort)
-        val data = LivePagedListBuilder(dataSourceFactory, 20)
+        val data = LivePagedListBuilder(dataSourceFactory, DATABASE_PAGE_SIZE)
             .build()
         return ComplexRecipeListResult(data)
     }
@@ -113,5 +113,9 @@ class RecipeRepository(
         val thirtyMinutesAgo = ZonedDateTime.now().minusMinutes(30)
         val twoMinutesAgo = ZonedDateTime.now().minusMinutes(2)
         return lastFetchTime.isBefore(twoMinutesAgo)
+    }
+
+    companion object {
+        private const val DATABASE_PAGE_SIZE = 20
     }
 }
