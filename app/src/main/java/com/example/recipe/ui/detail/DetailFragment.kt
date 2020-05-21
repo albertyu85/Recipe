@@ -53,21 +53,16 @@ class DetailFragment : Fragment() {
                 .get(DetailViewModel::class.java)
 
         val adapter = DetailAdapter{recipeID: Int -> clickListener(recipeID)}
-        viewModel.getResponse()
 //        val progressVisibility = viewModel.response.distinctUntilChanged()
-        viewModel.response.data.observe(this, Observer<PagedList<ComplexRecipeListResult>> {
+        viewModel.complexRecipeResult.data.observe(this, Observer<PagedList<ComplexRecipe>> {
             Log.d("Detail", "List Updated")
             adapter.submitList(it)
             binding.detailList.adapter = adapter
         })
-
 //        binding.swipeContainer.setOnRefreshListener {
 //            viewModel.refresh()
 //            binding.swipeContainer.isRefreshing = false
 //        }
-
-
-
     }
 
     private fun clickListener(recipeID: Int) {
