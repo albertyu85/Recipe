@@ -61,8 +61,9 @@ interface RecipeApiService {
             @Query("diet") diet: String,
             @Query("type")type: String,
             @Query("sort") sort: String,
-            @Query("number") number: Int = 40,
-            @Query("offset") offset: Int = 0
+            @Query("offset") offset: Int = 0,
+            @Query("number") number: Int = 40
+
     ) : ComplexRecipeListResponse
 
 

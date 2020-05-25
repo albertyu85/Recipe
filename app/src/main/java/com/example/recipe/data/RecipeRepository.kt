@@ -67,6 +67,7 @@ class RecipeRepository(
 
         val dataSourceFactory = recipeLocalCache.getComplexRecipe(cuisine, diet, mealType, sort)
         val data = LivePagedListBuilder(dataSourceFactory, DATABASE_PAGE_SIZE)
+            .setBoundaryCallback(ComplexBoundaryCallback(recipeService, recipeLocalCache, cuisine, diet, mealType, sort))
             .build()
         return ComplexRecipeListResult(data)
     }
