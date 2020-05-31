@@ -1,6 +1,7 @@
 package com.example.recipe.db
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.example.recipe.model.ComplexRecipe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -36,7 +37,7 @@ class RecipeLocalCache(private val complexRecipeDao: ComplexRecipeDao,
     fun getComplexRecipe(cuisine: String,
                          diet: String,
                          mealType: String,
-                         sort: String) : LiveData<MutableList<ComplexRecipe>> {
+                         sort: String) : DataSource.Factory<Int, ComplexRecipe> {
         return complexRecipeDao.getComplex(cuisine, diet, mealType, sort)
     }
 }

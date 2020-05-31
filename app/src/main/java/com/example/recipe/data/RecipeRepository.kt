@@ -2,10 +2,13 @@ package com.example.recipe.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.recipe.api.RecipeApi
 import com.example.recipe.db.ComplexRecipeDao
 import com.example.recipe.db.RecipeLocalCache
 import com.example.recipe.model.ComplexRecipe
+import com.example.recipe.model.ComplexRecipeListResult
 import com.example.recipe.model.RecipeInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -22,14 +25,14 @@ class RecipeRepository(
     var mealType = ""
     var sort = ""
 
-    init {
-        GlobalScope.launch(Dispatchers.IO) {
-            if (recipeLocalCache.isComplexEmpty(cuisine, diet, mealType, sort) == 0) {
-                Log.d("Repository", "Database Empty")
-                fetchComplexRecipe()
-            }
-        }
-    }
+//    init {
+//        GlobalScope.launch(Dispatchers.IO) {
+//            if (recipeLocalCache.isComplexEmpty(cuisine, diet, mealType, sort) == 0) {
+//                Log.d("Repository", "Database Empty")
+//                fetchComplexRecipe()
+//            }
+//        }
+//    }
 //    suspend fun refresh() {
 //        when(type) {
 //            "Cuisine" -> persistCuisine()
@@ -52,22 +55,27 @@ class RecipeRepository(
     suspend fun getRecipeByID(id: Int) : RecipeInformation {
         return recipeService.retrofitService.getRecipe(id)
     }
-    private suspend fun fetchComplexRecipe() {
-        Log.d("Repository", "API Fetch")
-        val list = recipeService.retrofitService.getRecipeComplex(cuisine, diet, mealType, sort)
-        insertComplex(list.results)
-    }
+//    private suspend fun fetchComplexRecipe() {
+//        Log.d("Repository", "API Fetch")
+//        val list = recipeService.retrofitService.getRecipeComplex(cuisine, diet, mealType, sort)
+//        insertComplex(list.results)
+//    }
 
 
-    fun getComplexRecipe(): LiveData<MutableList<ComplexRecipe>> {
+    fun getComplexRecipe(): ComplexRecipeListResult {
         Log.d("Repository", "Database fetch")
-        return recipeLocalCache.getComplexRecipe(cuisine, diet, mealType, sort)
+
+        val dataSourceFactory = recipeLocalCache.getComplexRecipe(cuisine, diet, mealType, sort)
+        val data = LivePagedListBuilder(dataSourceFactory, DATABASE_PAGE_SIZE)
+            .setBoundaryCallback(ComplexBoundaryCallback(recipeService, recipeLocalCache, cuisine, diet, mealType, sort))
+            .build()
+        return ComplexRecipeListResult(data)
     }
 
-    private fun insertComplex(complexRecipeList: MutableList<ComplexRecipe>) {
-        Log.d("Repository", "Inserting in database")
-        recipeLocalCache.insertComplexRecipeList(complexRecipeList, cuisine, diet, mealType, sort)
-    }
+//    private fun insertComplex(complexRecipeList: MutableList<ComplexRecipe>) {
+//        Log.d("Repository", "Inserting in database")
+//        recipeLocalCache.insertComplexRecipeList(complexRecipeList, cuisine, diet, mealType, sort)
+//    }
 //    suspend fun persistCuisine() {
 //        persistData(recipeService.retrofitService.getCuisines(detail).results)
 //    }
@@ -101,10 +109,14 @@ class RecipeRepository(
 //            }
 //        }
 //    }
+//
+//    private fun isFetchNeeded(lastFetchTime: ZonedDateTime): Boolean {
+//        val thirtyMinutesAgo = ZonedDateTime.now().minusMinutes(30)
+//        val twoMinutesAgo = ZonedDateTime.now().minusMinutes(2)
+//        return lastFetchTime.isBefore(twoMinutesAgo)
+//    }
 
-    private fun isFetchNeeded(lastFetchTime: ZonedDateTime): Boolean {
-        val thirtyMinutesAgo = ZonedDateTime.now().minusMinutes(30)
-        val twoMinutesAgo = ZonedDateTime.now().minusMinutes(2)
-        return lastFetchTime.isBefore(twoMinutesAgo)
+    companion object {
+        private const val DATABASE_PAGE_SIZE = 20
     }
 }

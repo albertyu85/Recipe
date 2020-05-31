@@ -1,6 +1,8 @@
 package com.example.recipe.db
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
+import androidx.paging.PagedList
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -27,5 +29,5 @@ interface ComplexRecipeDao {
     fun isComplexEmpty(cuisine: String, diet: String, mealType: String, sort: String) : Int
 
     @Query("SELECT * FROM complex_recipe_table WHERE cuisine = :cuisine AND diet = :diet AND mealType = :mealType AND sort = :sort")
-    fun getComplex(cuisine: String, diet: String, mealType: String, sort: String) : LiveData<MutableList<ComplexRecipe>>
+    fun getComplex(cuisine: String, diet: String, mealType: String, sort: String) : DataSource.Factory<Int, ComplexRecipe>
 }
