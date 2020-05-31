@@ -31,10 +31,12 @@ class ComplexBoundaryCallback(private val recipeService: RecipeApi,
 
     private fun requestAndSaveData() {
         Log.d("Repository", "ComplexBoundaryCallback Request")
+        Log.d("Repository", "Offset: $lastRequestedOffset")
         if (isRequestInProgress) return
 
         isRequestInProgress = true
         GlobalScope.launch(Dispatchers.IO) {
+            Log.d("Repository", "API Call")
             val list = recipeService.retrofitService.getRecipeComplex(cuisine, diet, mealType, sort, lastRequestedOffset)
             cache.insertComplexRecipeList(list.results, cuisine, diet, mealType, sort)
             isRequestInProgress = false

@@ -24,15 +24,18 @@ class DetailAdapter(val listener: (recipeID: Int) -> Unit) : PagedListAdapter<Co
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 //        holder.progressBar.visibility = View.VISIBLE
-        holder.image.visibility = View.INVISIBLE
-        holder.title.text = item!!.title
-        holder.id = item.id
-        Glide.with(holder.image.context)
+        if (item != null) {
+            holder.image.visibility = View.INVISIBLE
+            holder.title.text = item.title
+            holder.id = item.id
+            Glide.with(holder.image.context)
                 .load("https://spoonacular.com/recipeImages/${item.id}-312x150.jpg")
                 .into(holder.image)
 //        holder.progressBar.visibility = View.INVISIBLE
-        holder.image.visibility = View.VISIBLE
-        holder.bind(listener)
+            holder.image.visibility = View.VISIBLE
+            holder.bind(listener)
+        }
+
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
