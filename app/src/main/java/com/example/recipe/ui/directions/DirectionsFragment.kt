@@ -23,6 +23,7 @@ import com.example.recipe.databinding.DirectionsFragmentBinding
 import com.example.recipe.model.Cart
 import com.example.recipe.model.RecipeInformation
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.directions_fragment.*
 
 class DirectionsFragment : Fragment() {
     private lateinit var viewModel: DirectionsViewModel
@@ -62,6 +63,9 @@ class DirectionsFragment : Fragment() {
             }
 
             binding.apply {
+                ingredients_size_textView.text = "${it.extendedIngredients.size}"
+                servingsSizeTextView.text = "${it.servings}"
+                readyInMinutesTimeTextView.text = "${it.readyInMinutes}"
                 recipeImage.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
             }
