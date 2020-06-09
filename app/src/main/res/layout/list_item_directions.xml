@@ -7,17 +7,21 @@
 
     <TextView
         android:id="@+id/item_name"
+        android:padding="10dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginLeft="15dp"
         android:text="Item Name"
         android:textAppearance="?attr/textAppearanceListItem" />
 
-    <Button
-        android:id="@+id/add_button"
+
+    <ImageView
+        android:id="@+id/add_imageView"
         android:layout_width="0dp"
+        android:padding="10dp"
         android:layout_height="wrap_content"
         android:layout_weight=".30"
-        android:text="@string/add_to_cart"
-        android:textSize="10sp" />
+        android:src="@drawable/ic_add_circle_outline_black_24dp"/>
+
 </LinearLayout>

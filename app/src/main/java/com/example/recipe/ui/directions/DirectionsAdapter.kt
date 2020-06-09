@@ -38,7 +38,7 @@ class DirectionsAdapter(val listener: (cart: Cart) -> Unit) : ListAdapter<Ingred
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.item_name
         fun bind(clickListener: (cart: Cart) -> Unit) {
-            itemView.add_button.setOnClickListener { clickListener(Cart(0, name.text.toString(), "")) }
+            itemView.add_imageView.setOnClickListener { clickListener(Cart(0, name.text.toString(), "")) }
         }
     }
 }
